@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# plugin runtime data (never commit memory databases or exports)
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+memory-export*.json
+memory-export*.jsonl
+.dsh-data/
+
+# test / eval artifacts
+tmp/
+.tmp/
+coverage/
+*.log
+eval-results/
+tests/fixtures/generated/
+
+# local environment
+.env
+.env.*
+!.env.example
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

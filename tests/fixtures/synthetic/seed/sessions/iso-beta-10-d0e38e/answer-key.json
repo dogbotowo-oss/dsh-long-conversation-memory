@@ -1,0 +1,158 @@
+{
+  "format": "dsh-session-memory-eval-answer-key",
+  "version": 1,
+  "scenario": "multi-session",
+  "group": "isolation",
+  "sessionId": "iso-beta-10-d0e38e",
+  "turns": 10,
+  "seed": "dsh-session-memory-eval-v1",
+  "skill": {
+    "name": "synthetic-eval-runbook",
+    "rules": [
+      {
+        "key": "unit_and_condition",
+        "category": "stable_rule",
+        "match": "unit and its statistical condition",
+        "sourceLine": 9
+      },
+      {
+        "key": "correction_wins",
+        "category": "stable_rule",
+        "match": "Never present a superseded value as current",
+        "sourceLine": 11
+      },
+      {
+        "key": "model_version_format",
+        "category": "data_convention",
+        "match": "one comparison row keeps a single model version",
+        "sourceLine": 15
+      },
+      {
+        "key": "chinese_units",
+        "category": "data_convention",
+        "match": "分 is not converted to %, and the unit is retained",
+        "sourceLine": 17
+      },
+      {
+        "key": "active_split",
+        "category": "current_state",
+        "match": "diagnostic and are labelled with their split name",
+        "sourceLine": 21
+      },
+      {
+        "key": "trust_evidence_after_compaction",
+        "category": "operational_lesson",
+        "match": "trust durable evidence over any summary",
+        "sourceLine": 25
+      }
+    ]
+  },
+  "facts": [
+    {
+      "key": "beta_core",
+      "kind": "fact",
+      "subject": "beta-core",
+      "metric": "WER",
+      "unit": "%",
+      "value": "12.34",
+      "initialValue": null,
+      "conditions": [
+        "test-other",
+        "greedy decode",
+        "n=400"
+      ],
+      "conditionHints": [
+        "test-other",
+        "greedy decode"
+      ],
+      "modelVersion": "beta-core",
+      "introducedTurn": 3,
+      "correctionTurn": null,
+      "sourceSeq": 19,
+      "correctionSeq": null,
+      "status": "active",
+      "supersededStatus": null
+    }
+  ],
+  "expectedTaskState": {
+    "goal": "完成 beta 的最终评测报告并提交",
+    "progress": [],
+    "blockers": [],
+    "openItems": []
+  },
+  "retry": {
+    "marker": "PDF",
+    "maxActiveItems": 1
+  },
+  "pollution": {
+    "values": [],
+    "phrases": []
+  },
+  "forbiddenFromSessions": [
+    "88.14"
+  ],
+  "expectedCounts": {
+    "activeFacts": 1,
+    "correctedFacts": 0,
+    "rules": 6,
+    "questions": 2,
+    "uniqueEvents": 87
+  },
+  "questions": [
+    {
+      "id": "q-isolation-own-beta",
+      "kind": "isolation",
+      "lang": "en",
+      "query": "What WER did beta-core reach on test-other with greedy decode?",
+      "expect": {
+        "factKeys": [
+          "beta_core"
+        ],
+        "values": [
+          "12.34"
+        ],
+        "unit": "%",
+        "conditions": [
+          "test-other",
+          "greedy decode"
+        ],
+        "modelVersion": "beta-core",
+        "ruleKeys": [],
+        "ruleMatches": [],
+        "evidenceSeqs": [],
+        "retrieval": "fact",
+        "rank1FactKey": "beta_core",
+        "forbiddenValues": [
+          "88.14"
+        ],
+        "mustNotContain": [],
+        "guard": false,
+        "assemblyOptional": false
+      }
+    },
+    {
+      "id": "q-isolation-cross-beta",
+      "kind": "isolation",
+      "lang": "zh",
+      "query": "alpha-core 在 test-clean 上的 BLEU 是多少？只根据本会话回答。",
+      "expect": {
+        "factKeys": [],
+        "values": [],
+        "unit": "",
+        "conditions": [],
+        "modelVersion": "",
+        "ruleKeys": [],
+        "ruleMatches": [],
+        "evidenceSeqs": [],
+        "retrieval": "fact",
+        "rank1FactKey": null,
+        "forbiddenValues": [
+          "88.14"
+        ],
+        "mustNotContain": [],
+        "guard": true,
+        "assemblyOptional": false
+      }
+    }
+  ]
+}

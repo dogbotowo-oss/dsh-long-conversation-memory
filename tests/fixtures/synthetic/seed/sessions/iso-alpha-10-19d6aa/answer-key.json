@@ -1,0 +1,158 @@
+{
+  "format": "dsh-session-memory-eval-answer-key",
+  "version": 1,
+  "scenario": "multi-session",
+  "group": "isolation",
+  "sessionId": "iso-alpha-10-19d6aa",
+  "turns": 10,
+  "seed": "dsh-session-memory-eval-v1",
+  "skill": {
+    "name": "synthetic-eval-runbook",
+    "rules": [
+      {
+        "key": "unit_and_condition",
+        "category": "stable_rule",
+        "match": "unit and its statistical condition",
+        "sourceLine": 9
+      },
+      {
+        "key": "correction_wins",
+        "category": "stable_rule",
+        "match": "Never present a superseded value as current",
+        "sourceLine": 11
+      },
+      {
+        "key": "model_version_format",
+        "category": "data_convention",
+        "match": "one comparison row keeps a single model version",
+        "sourceLine": 15
+      },
+      {
+        "key": "chinese_units",
+        "category": "data_convention",
+        "match": "分 is not converted to %, and the unit is retained",
+        "sourceLine": 17
+      },
+      {
+        "key": "active_split",
+        "category": "current_state",
+        "match": "diagnostic and are labelled with their split name",
+        "sourceLine": 21
+      },
+      {
+        "key": "trust_evidence_after_compaction",
+        "category": "operational_lesson",
+        "match": "trust durable evidence over any summary",
+        "sourceLine": 25
+      }
+    ]
+  },
+  "facts": [
+    {
+      "key": "alpha_core",
+      "kind": "fact",
+      "subject": "alpha-core",
+      "metric": "BLEU",
+      "unit": "分",
+      "value": "88.14",
+      "initialValue": null,
+      "conditions": [
+        "beam=4",
+        "test-clean",
+        "n=800"
+      ],
+      "conditionHints": [
+        "beam=4",
+        "test-clean"
+      ],
+      "modelVersion": "alpha-core",
+      "introducedTurn": 3,
+      "correctionTurn": null,
+      "sourceSeq": 19,
+      "correctionSeq": null,
+      "status": "active",
+      "supersededStatus": null
+    }
+  ],
+  "expectedTaskState": {
+    "goal": "完成 alpha 的最终评测报告并提交",
+    "progress": [],
+    "blockers": [],
+    "openItems": []
+  },
+  "retry": {
+    "marker": "PDF",
+    "maxActiveItems": 1
+  },
+  "pollution": {
+    "values": [],
+    "phrases": []
+  },
+  "forbiddenFromSessions": [
+    "12.34"
+  ],
+  "expectedCounts": {
+    "activeFacts": 1,
+    "correctedFacts": 0,
+    "rules": 6,
+    "questions": 2,
+    "uniqueEvents": 87
+  },
+  "questions": [
+    {
+      "id": "q-isolation-own-alpha",
+      "kind": "isolation",
+      "lang": "zh",
+      "query": "alpha-core 在 test-clean 上 beam=4 的 BLEU 是多少分？",
+      "expect": {
+        "factKeys": [
+          "alpha_core"
+        ],
+        "values": [
+          "88.14"
+        ],
+        "unit": "分",
+        "conditions": [
+          "beam=4",
+          "test-clean"
+        ],
+        "modelVersion": "alpha-core",
+        "ruleKeys": [],
+        "ruleMatches": [],
+        "evidenceSeqs": [],
+        "retrieval": "fact",
+        "rank1FactKey": "alpha_core",
+        "forbiddenValues": [
+          "12.34"
+        ],
+        "mustNotContain": [],
+        "guard": false,
+        "assemblyOptional": false
+      }
+    },
+    {
+      "id": "q-isolation-cross-alpha",
+      "kind": "isolation",
+      "lang": "en",
+      "query": "What WER did beta-core reach on test-other? Answer only from this session.",
+      "expect": {
+        "factKeys": [],
+        "values": [],
+        "unit": "",
+        "conditions": [],
+        "modelVersion": "",
+        "ruleKeys": [],
+        "ruleMatches": [],
+        "evidenceSeqs": [],
+        "retrieval": "fact",
+        "rank1FactKey": null,
+        "forbiddenValues": [
+          "12.34"
+        ],
+        "mustNotContain": [],
+        "guard": true,
+        "assemblyOptional": false
+      }
+    }
+  ]
+}

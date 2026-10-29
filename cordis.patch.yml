@@ -1,0 +1,4 @@
+- insert:
+    - id: session-memory
+      name: 'dsh-session-memory'
+      config: {}

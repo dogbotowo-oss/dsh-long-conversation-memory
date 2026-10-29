@@ -1,0 +1,1035 @@
+{
+  "format": "dsh-session-memory-eval-session",
+  "version": 1,
+  "scenario": "multi-session",
+  "variant": "full",
+  "group": "isolation",
+  "sessionId": "iso-beta-10-d0e38e",
+  "turns": 10,
+  "seed": "dsh-session-memory-eval-v1",
+  "cwd": "/synthetic/workspace/mimir-eval",
+  "project": "mimir-eval",
+  "dshVersion": "synthetic-0.1",
+  "events": [
+    {
+      "seq": 1,
+      "type": "turn/start",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "turn": 1
+      }
+    },
+    {
+      "seq": 2,
+      "type": "step/start",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "turn": 1,
+        "step": 1
+      }
+    },
+    {
+      "seq": 3,
+      "type": "user/message",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "继续。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 4,
+      "type": "step/end",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "turn": 1,
+        "step": 1
+      }
+    },
+    {
+      "seq": 5,
+      "type": "step/start",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "turn": 1,
+        "step": 2
+      }
+    },
+    {
+      "seq": 6,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:01:33.000Z",
+      "data": {
+        "turn": 1,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "输出目录已确认。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "type": "step/end",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "turn": 1,
+        "step": 2
+      }
+    },
+    {
+      "seq": 8,
+      "type": "turn/end",
+      "time": "2026-01-05T08:01:30.000Z",
+      "data": {
+        "turn": 1
+      }
+    },
+    {
+      "seq": 9,
+      "type": "turn/start",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "turn": 2
+      }
+    },
+    {
+      "seq": 10,
+      "type": "step/start",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "turn": 2,
+        "step": 1
+      }
+    },
+    {
+      "seq": 11,
+      "type": "user/message",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "目标：完成 beta 的最终评测报告并提交。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 12,
+      "type": "step/end",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "turn": 2,
+        "step": 1
+      }
+    },
+    {
+      "seq": 13,
+      "type": "step/start",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "turn": 2,
+        "step": 2
+      }
+    },
+    {
+      "seq": 14,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:03:03.000Z",
+      "data": {
+        "turn": 2,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "好的，我记下目标。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 15,
+      "type": "step/end",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "turn": 2,
+        "step": 2
+      }
+    },
+    {
+      "seq": 16,
+      "type": "turn/end",
+      "time": "2026-01-05T08:03:00.000Z",
+      "data": {
+        "turn": 2
+      }
+    },
+    {
+      "seq": 17,
+      "type": "turn/start",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "turn": 3
+      }
+    },
+    {
+      "seq": 18,
+      "type": "step/start",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "turn": 3,
+        "step": 1
+      }
+    },
+    {
+      "seq": 19,
+      "type": "user/message",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "beta-core 在 test-other 上 greedy decode 的 WER 是 12.34%（n=400）。只属于这个会话。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 20,
+      "type": "step/end",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "turn": 3,
+        "step": 1
+      }
+    },
+    {
+      "seq": 21,
+      "type": "step/start",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "turn": 3,
+        "step": 2
+      }
+    },
+    {
+      "seq": 22,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:04:33.000Z",
+      "data": {
+        "turn": 3,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "收到，已记录该数值和条件。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 23,
+      "type": "step/end",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "turn": 3,
+        "step": 2
+      }
+    },
+    {
+      "seq": 24,
+      "type": "turn/end",
+      "time": "2026-01-05T08:04:30.000Z",
+      "data": {
+        "turn": 3
+      }
+    },
+    {
+      "seq": 25,
+      "type": "turn/start",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "turn": 4
+      }
+    },
+    {
+      "seq": 26,
+      "type": "step/start",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "turn": 4,
+        "step": 1
+      }
+    },
+    {
+      "seq": 27,
+      "type": "user/message",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "提交前记得跑一遍检查。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 28,
+      "type": "step/end",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "turn": 4,
+        "step": 1
+      }
+    },
+    {
+      "seq": 29,
+      "type": "step/start",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "turn": 4,
+        "step": 2
+      }
+    },
+    {
+      "seq": 30,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:06:03.000Z",
+      "data": {
+        "turn": 4,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "这个参数没变，结果应该稳定。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 31,
+      "type": "tool/call",
+      "time": "2026-01-05T08:06:06.000Z",
+      "data": {
+        "turn": 4,
+        "step": 2,
+        "name": "run_eval",
+        "callId": "call_4",
+        "arguments": {
+          "suite": "test-clean",
+          "model": "beta-core"
+        }
+      }
+    },
+    {
+      "seq": 32,
+      "type": "tool/result",
+      "time": "2026-01-05T08:06:09.000Z",
+      "data": {
+        "turn": 4,
+        "step": 2,
+        "message": {
+          "source": {
+            "callId": "call_4",
+            "name": "run_eval"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "[synthetic] suite test-clean finished: examples=1200 exit=0 (turn 4)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 33,
+      "type": "step/end",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "turn": 4,
+        "step": 2
+      }
+    },
+    {
+      "seq": 34,
+      "type": "turn/end",
+      "time": "2026-01-05T08:06:00.000Z",
+      "data": {
+        "turn": 4
+      }
+    },
+    {
+      "seq": 35,
+      "type": "turn/start",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "turn": 5
+      }
+    },
+    {
+      "seq": 36,
+      "type": "step/start",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "turn": 5,
+        "step": 1
+      }
+    },
+    {
+      "seq": 37,
+      "type": "user/message",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "现在进度到哪了？"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 38,
+      "type": "step/end",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "turn": 5,
+        "step": 1
+      }
+    },
+    {
+      "seq": 39,
+      "type": "step/start",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "turn": 5,
+        "step": 2
+      }
+    },
+    {
+      "seq": 40,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:07:33.000Z",
+      "data": {
+        "turn": 5,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "好的。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 41,
+      "type": "step/end",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "turn": 5,
+        "step": 2
+      }
+    },
+    {
+      "seq": 42,
+      "type": "turn/end",
+      "time": "2026-01-05T08:07:30.000Z",
+      "data": {
+        "turn": 5
+      }
+    },
+    {
+      "seq": 43,
+      "type": "compaction/start",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "reason": "soft-budget",
+        "policy": "synthetic"
+      }
+    },
+    {
+      "seq": 44,
+      "type": "compaction/summary",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "# Compaction summary (turn 6)\n- beta-core WER: 12.34 %\n- 其余细节请回查原始记录。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 45,
+      "type": "compaction/end",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "compactedSeqs": [
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44
+        ]
+      }
+    },
+    {
+      "seq": 46,
+      "type": "turn/start",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6
+      }
+    },
+    {
+      "seq": 47,
+      "type": "step/start",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "step": 1
+      }
+    },
+    {
+      "seq": 48,
+      "type": "user/message",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "继续。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 49,
+      "type": "step/end",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "step": 1
+      }
+    },
+    {
+      "seq": 50,
+      "type": "step/start",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "step": 2
+      }
+    },
+    {
+      "seq": 51,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:09:03.000Z",
+      "data": {
+        "turn": 6,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "建议先跑完再看差异。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 52,
+      "type": "step/end",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6,
+        "step": 2
+      }
+    },
+    {
+      "seq": 53,
+      "type": "turn/end",
+      "time": "2026-01-05T08:09:00.000Z",
+      "data": {
+        "turn": 6
+      }
+    },
+    {
+      "seq": 54,
+      "type": "turn/start",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "turn": 7
+      }
+    },
+    {
+      "seq": 55,
+      "type": "step/start",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "turn": 7,
+        "step": 1
+      }
+    },
+    {
+      "seq": 56,
+      "type": "user/message",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "把评测脚本的参数贴一下。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 57,
+      "type": "step/end",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "turn": 7,
+        "step": 1
+      }
+    },
+    {
+      "seq": 58,
+      "type": "step/start",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "turn": 7,
+        "step": 2
+      }
+    },
+    {
+      "seq": 59,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:10:33.000Z",
+      "data": {
+        "turn": 7,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "好的，下一步继续。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 60,
+      "type": "step/end",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "turn": 7,
+        "step": 2
+      }
+    },
+    {
+      "seq": 61,
+      "type": "turn/end",
+      "time": "2026-01-05T08:10:30.000Z",
+      "data": {
+        "turn": 7
+      }
+    },
+    {
+      "seq": 62,
+      "type": "turn/start",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "turn": 8
+      }
+    },
+    {
+      "seq": 63,
+      "type": "step/start",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "turn": 8,
+        "step": 1
+      }
+    },
+    {
+      "seq": 64,
+      "type": "user/message",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "顺便问一下：git 报错 detached HEAD 是什么意思？"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 65,
+      "type": "step/end",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "turn": 8,
+        "step": 1
+      }
+    },
+    {
+      "seq": 66,
+      "type": "step/start",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "turn": 8,
+        "step": 2
+      }
+    },
+    {
+      "seq": 67,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:12:03.000Z",
+      "data": {
+        "turn": 8,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "简短回答后我们回到评测。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 68,
+      "type": "tool/call",
+      "time": "2026-01-05T08:12:06.000Z",
+      "data": {
+        "turn": 8,
+        "step": 2,
+        "name": "run_eval",
+        "callId": "call_8",
+        "arguments": {
+          "suite": "test-clean",
+          "model": "beta-core"
+        }
+      }
+    },
+    {
+      "seq": 69,
+      "type": "tool/result",
+      "time": "2026-01-05T08:12:09.000Z",
+      "data": {
+        "turn": 8,
+        "step": 2,
+        "message": {
+          "source": {
+            "callId": "call_8",
+            "name": "run_eval"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "[synthetic] suite test-clean finished: examples=1200 exit=0 (turn 8)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 64,
+      "type": "user/message",
+      "time": "2026-01-05T08:12:12.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "顺便问一下：git 报错 detached HEAD 是什么意思？"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 70,
+      "type": "step/end",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "turn": 8,
+        "step": 2
+      }
+    },
+    {
+      "seq": 71,
+      "type": "turn/end",
+      "time": "2026-01-05T08:12:00.000Z",
+      "data": {
+        "turn": 8
+      }
+    },
+    {
+      "seq": 72,
+      "type": "turn/start",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "turn": 9
+      }
+    },
+    {
+      "seq": 73,
+      "type": "step/start",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "turn": 9,
+        "step": 1
+      }
+    },
+    {
+      "seq": 74,
+      "type": "user/message",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "刚才那个结论先不要写进报告。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 75,
+      "type": "step/end",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "turn": 9,
+        "step": 1
+      }
+    },
+    {
+      "seq": 76,
+      "type": "step/start",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "turn": 9,
+        "step": 2
+      }
+    },
+    {
+      "seq": 77,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:13:33.000Z",
+      "data": {
+        "turn": 9,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "输出目录已确认。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 78,
+      "type": "step/end",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "turn": 9,
+        "step": 2
+      }
+    },
+    {
+      "seq": 79,
+      "type": "turn/end",
+      "time": "2026-01-05T08:13:30.000Z",
+      "data": {
+        "turn": 9
+      }
+    },
+    {
+      "seq": 80,
+      "type": "turn/start",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "turn": 10
+      }
+    },
+    {
+      "seq": 81,
+      "type": "step/start",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "turn": 10,
+        "step": 1
+      }
+    },
+    {
+      "seq": 82,
+      "type": "user/message",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "日志里那段 warning 不用管，继续。"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 83,
+      "type": "step/end",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "turn": 10,
+        "step": 1
+      }
+    },
+    {
+      "seq": 84,
+      "type": "step/start",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "turn": 10,
+        "step": 2
+      }
+    },
+    {
+      "seq": 85,
+      "type": "assistant/message",
+      "time": "2026-01-05T08:15:03.000Z",
+      "data": {
+        "turn": 10,
+        "step": 2,
+        "message": {
+          "content": [
+            {
+              "type": "text",
+              "text": "已保存。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 86,
+      "type": "step/end",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "turn": 10,
+        "step": 2
+      }
+    },
+    {
+      "seq": 87,
+      "type": "turn/end",
+      "time": "2026-01-05T08:15:00.000Z",
+      "data": {
+        "turn": 10
+      }
+    }
+  ],
+  "turnGroups": [
+    {
+      "turn": 1,
+      "from": 0,
+      "to": 8
+    },
+    {
+      "turn": 2,
+      "from": 8,
+      "to": 16
+    },
+    {
+      "turn": 3,
+      "from": 16,
+      "to": 24
+    },
+    {
+      "turn": 4,
+      "from": 24,
+      "to": 34
+    },
+    {
+      "turn": 5,
+      "from": 34,
+      "to": 42
+    },
+    {
+      "turn": 6,
+      "from": 42,
+      "to": 53
+    },
+    {
+      "turn": 7,
+      "from": 53,
+      "to": 61
+    },
+    {
+      "turn": 8,
+      "from": 61,
+      "to": 72
+    },
+    {
+      "turn": 9,
+      "from": 72,
+      "to": 80
+    },
+    {
+      "turn": 10,
+      "from": 80,
+      "to": 88
+    }
+  ],
+  "phases": [
+    {
+      "afterTurn": 4,
+      "replayFromIndex": 8,
+      "replayToIndex": 34,
+      "note": "simulated restart/resume after turn 4"
+    }
+  ],
+  "meta": {
+    "uniqueEvents": 87,
+    "rawEventEntries": 88,
+    "turnGroups": 10,
+    "compactions": 1,
+    "restarts": 1,
+    "pollutionTurns": [],
+    "restartTurns": [
+      4
+    ]
+  }
+}

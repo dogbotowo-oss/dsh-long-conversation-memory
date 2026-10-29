@@ -1,0 +1,56 @@
+{
+  "name": "dsh-session-memory",
+  "version": "0.1.0",
+  "description": "Long-conversation session memory for DeepSeek Harness: durable evidence, skill rules, task state and budgeted context assembly.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "docs",
+    "examples"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "long-context",
+    "memory",
+    "session",
+    "sqlite"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": "^22.15.0 || >=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test \"tests/unit/*.test.mjs\" \"tests/integration/*.test.mjs\" \"tests/replay/*.test.mjs\"",
+    "test:unit": "node --test \"tests/unit/*.test.mjs\"",
+    "test:integration": "node --test \"tests/integration/*.test.mjs\"",
+    "test:replay": "node --test \"tests/replay/*.test.mjs\"",
+    "eval": "node scripts/eval.mjs",
+    "eval:quick": "node scripts/eval.mjs --profile smoke",
+    "check": "node scripts/check.mjs",
+    "cli": "node scripts/memory-cli.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0-rc <5"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  }
+}

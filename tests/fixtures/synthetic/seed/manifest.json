@@ -1,0 +1,106 @@
+{
+  "format": "dsh-session-memory-eval-fixtures",
+  "version": 1,
+  "generatorVersion": "1.0.0",
+  "profile": "seed",
+  "seed": "dsh-session-memory-eval-v1",
+  "logicalStart": "2026-01-05T08:00:00.000Z",
+  "variant": "synthetic",
+  "skill": {
+    "name": "synthetic-eval-runbook",
+    "path": "skills/synthetic-eval-runbook/SKILL.md"
+  },
+  "profiles": [
+    "seed",
+    "smoke",
+    "standard",
+    "full"
+  ],
+  "longHaulTurns": [
+    20
+  ],
+  "groupProfile": "isolation",
+  "sessions": [
+    {
+      "scenario": "long-haul",
+      "group": null,
+      "sessionId": "lh-20-40011b",
+      "turns": 20,
+      "directory": "sessions/lh-20-40011b",
+      "files": {
+        "session": "sessions/lh-20-40011b/session.json",
+        "answerKey": "sessions/lh-20-40011b/answer-key.json"
+      },
+      "eventEntries": 178,
+      "uniqueEvents": 176,
+      "questionCount": 9,
+      "compactions": 1,
+      "restarts": 1,
+      "variant": "mini"
+    },
+    {
+      "scenario": "multi-session",
+      "group": "isolation",
+      "sessionId": "iso-alpha-10-19d6aa",
+      "turns": 10,
+      "directory": "sessions/iso-alpha-10-19d6aa",
+      "files": {
+        "session": "sessions/iso-alpha-10-19d6aa/session.json",
+        "answerKey": "sessions/iso-alpha-10-19d6aa/answer-key.json"
+      },
+      "eventEntries": 88,
+      "uniqueEvents": 87,
+      "questionCount": 2,
+      "compactions": 1,
+      "restarts": 1,
+      "variant": "full"
+    },
+    {
+      "scenario": "multi-session",
+      "group": "isolation",
+      "sessionId": "iso-beta-10-d0e38e",
+      "turns": 10,
+      "directory": "sessions/iso-beta-10-d0e38e",
+      "files": {
+        "session": "sessions/iso-beta-10-d0e38e/session.json",
+        "answerKey": "sessions/iso-beta-10-d0e38e/answer-key.json"
+      },
+      "eventEntries": 88,
+      "uniqueEvents": 87,
+      "questionCount": 2,
+      "compactions": 1,
+      "restarts": 1,
+      "variant": "full"
+    }
+  ],
+  "groups": [
+    {
+      "group": "isolation",
+      "scenario": "multi-session",
+      "sessions": [
+        "iso-alpha-10-19d6aa",
+        "iso-beta-10-d0e38e"
+      ],
+      "interleave": true,
+      "turns": 10
+    }
+  ],
+  "totals": {
+    "sessions": 3,
+    "longHaulSessions": 1,
+    "isolationSessions": 2,
+    "turns": 40,
+    "uniqueEvents": 350,
+    "rawEventEntries": 354,
+    "questions": 13
+  },
+  "formats": {
+    "session": "dsh-session-memory-eval-session",
+    "answerKey": "dsh-session-memory-eval-answer-key"
+  },
+  "notes": [
+    "Generated data is deterministic for a given (profile, seed, turns).",
+    "Answer keys are independent of the evaluation harness: they are derived from the fixture definition, not from the answer path.",
+    "Large generated fixtures belong in tests/fixtures/generated/ (gitignored); only the small seed profile is checked in."
+  ]
+}

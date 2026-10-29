@@ -1,0 +1,71 @@
+{
+  "$comment": [
+    "Example dsh-session-memory plugin configuration.",
+    "Pass this object as the plugin config in your DSH profile (see README).",
+    "Every key is optional; omitted keys fall back to the defaults in src/config.js.",
+    "The empty dataDir means: use <DSH_HOME>/session-memory/."
+  ],
+  "enabled": true,
+  "dataDir": "",
+  "dbFile": "memory.sqlite",
+  "includeSubagents": false,
+  "assembly": {
+    "enabled": true,
+    "softBudgetTokens": 3000,
+    "minBudgetTokens": 600,
+    "maxMemoryItems": 40,
+    "maxRules": 12,
+    "maxEvidence": 8,
+    "evidenceTypes": ["user/message"],
+    "skipWhenEmpty": true,
+    "reinjectUnchangedTurns": 0,
+    "includeTaskState": true
+  },
+  "extraction": {
+    "enabled": true,
+    "immediateCorrections": true,
+    "scanUserMessages": true,
+    "recordAssistantProposals": true
+  },
+  "retrieval": {
+    "limit": 24,
+    "exactMatchBoost": 3,
+    "scopeBoost": 2,
+    "recencyBoost": 0.5,
+    "minScore": 0.5
+  },
+  "validation": {
+    "enabled": true,
+    "checks": [],
+    "preconditions": [],
+    "maxRepairAttempts": 2,
+    "blockOnViolation": false
+  },
+  "commands": {
+    "register": true,
+    "name": "memory",
+    "exposeModelTool": false
+  },
+  "compatibility": {
+    "compactionPolicy": "auto",
+    "reinjectAfterCompaction": true,
+    "reportUnknownCompatibility": true
+  },
+  "diagnostics": {
+    "verbose": false,
+    "assemblyLogRetention": 200
+  },
+  "archive": {
+    "enabled": true,
+    "maxCharsPerEvent": 4000,
+    "archiveTypes": ["tool/result", "compaction/summary"]
+  },
+  "skills": {
+    "enabled": true,
+    "include": [],
+    "exclude": [],
+    "residentCoreMaxChars": 1600,
+    "maxRuleChars": 1200,
+    "autoClassify": true
+  }
+}
