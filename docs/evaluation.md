@@ -199,7 +199,7 @@ never mix numbers from a different commit, seed or profile.
 
 Run metadata (both tables):
 
-- plugin version 0.1.0, repository commit `<commit>` (the commit that added this table);
+- plugin version 0.1.0, code commit `bd90ced` (the commit these numbers were measured on);
 - DSH target: 0.2.1-rc.3 (interfaces verified; the harness is host-independent);
 - OS: Windows 10/11 x64, Node.js v24.19.0 (`node:sqlite` with FTS5);
 - answerer: `deterministic` (no model calls), seed `dsh-session-memory-eval-v1`;
