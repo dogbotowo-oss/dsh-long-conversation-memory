@@ -4,7 +4,7 @@
  * The database is an ordinary file owned by this plugin. It never writes to the
  * host session-persistence database and never rewrites host session logs.
  *
- * @module dsh-session-memory/core/schema
+ * @module dsh-long-conversation-memory/core/schema
  */
 
 import { SCHEMA_VERSION } from './constants.js'

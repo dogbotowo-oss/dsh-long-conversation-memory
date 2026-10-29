@@ -7,7 +7,7 @@
  * Subcommands: status, inspect <id>, search <query>, explain, retract <id>,
  * export, purge, help.
  *
- * @module dsh-session-memory/diagnostics
+ * @module dsh-long-conversation-memory/diagnostics
  */
 
 import { estimateTokens, oneLine } from './core/util.js'
@@ -50,7 +50,7 @@ export class Diagnostics {
     const parsed = parseMemoryCommand(rawInput)
     if (parsed === null) return { kind: 'none' }
     if (sessionId === null || sessionId === undefined || String(sessionId).length === 0) {
-      return { kind: 'error', text: 'session-memory: no active session id (memory command unavailable outside an agent session)' }
+      return { kind: 'error', text: 'long-conversation-memory: no active session id (memory command unavailable outside an agent session)' }
     }
     const sid = String(sessionId)
     try {
@@ -81,7 +81,7 @@ export class Diagnostics {
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
-      return { kind: 'error', text: `session-memory: ${message}` }
+      return { kind: 'error', text: `long-conversation-memory: ${message}` }
     }
   }
 
@@ -100,7 +100,7 @@ export class Diagnostics {
     const compatibility = this.describeCompatibility()
     /** @type {string[]} */
     const lines = [
-      `session-memory v${this.version} — status`,
+      `long-conversation-memory v${this.version} — status`,
       `数据库: ${this.dbFile ?? '(in-memory)'}`,
       `会话: ${sessionId}`,
       `事件: ${stats.events} 条 | 记忆: ${breakdown.active} active / ${breakdown.total} total | 规则: ${rules.length} | skill: ${skills.length}`,

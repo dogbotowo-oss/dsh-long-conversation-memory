@@ -12,7 +12,7 @@
  * is a configured, program-decidable *file precondition* in
  * `tools/pre-execute`, which is allowed to deny the tool call by configuration.
  *
- * @module dsh-session-memory/adapter/runtime
+ * @module dsh-long-conversation-memory/adapter/runtime
  */
 
 import fs from 'node:fs'
@@ -419,7 +419,7 @@ export class MemoryRuntime {
       }
       if (state.repairAttempts >= maxRepairAttempts) {
         this.warn(
-          `session-memory: validation failed ${violationErrors.length} time(s) for session ${sessionId}; ` +
+          `long-conversation-memory: validation failed ${violationErrors.length} time(s) for session ${sessionId}; ` +
             `repair budget (${maxRepairAttempts}) is exhausted, reporting only`,
         )
       }
@@ -487,7 +487,7 @@ export class MemoryRuntime {
     this.pendingAssemblies.set(prepared.contentHash, assemblyId)
     if ((this.config.diagnostics?.verbose ?? false) && this.logger?.debug !== undefined) {
       this.logger.debug(
-        `session-memory: injected ${prepared.result.usedTokens} tokens (${prepared.result.tokenSource}), ` +
+        `long-conversation-memory: injected ${prepared.result.usedTokens} tokens (${prepared.result.tokenSource}), ` +
           `${prepared.result.items.length} memories, ${prepared.result.sections.length} sections`,
       )
     }
@@ -667,7 +667,7 @@ export class MemoryRuntime {
       const denied = decision?.kind === 'deny' || decision?.allow === false
       if (denied) {
         const deny = decision.deny ?? { reason: decision.reason, info: decision.info }
-        return { kind: 'deny', reason: String(deny?.reason ?? 'blocked by session-memory precondition'), info: deny?.info }
+        return { kind: 'deny', reason: String(deny?.reason ?? 'blocked by long-conversation-memory precondition'), info: deny?.info }
       }
     } catch (error) {
       this.warn('memory: precondition evaluation failed; tool call continues', error)
@@ -696,7 +696,7 @@ export class MemoryRuntime {
           const result = this.diagnostics.handle(invocation?.rawInput ?? '', { sessionId })
           return host.normalizeCommandResult(result)
         } catch (error) {
-          return { kind: 'error', text: `session-memory: ${host.errorText(error)}` }
+          return { kind: 'error', text: `long-conversation-memory: ${host.errorText(error)}` }
         }
       },
     })

@@ -1,11 +1,11 @@
 {
-  "format": "dsh-session-memory-eval-answer-key",
+  "format": "dsh-long-conversation-memory-eval-answer-key",
   "version": 1,
   "scenario": "multi-session",
   "group": "isolation",
-  "sessionId": "iso-beta-10-d0e38e",
+  "sessionId": "iso-alpha-10-20eada",
   "turns": 10,
-  "seed": "dsh-session-memory-eval-v1",
+  "seed": "dsh-long-conversation-memory-eval-v1",
   "skill": {
     "name": "synthetic-eval-runbook",
     "rules": [
@@ -49,23 +49,23 @@
   },
   "facts": [
     {
-      "key": "beta_core",
+      "key": "alpha_core",
       "kind": "fact",
-      "subject": "beta-core",
-      "metric": "WER",
-      "unit": "%",
-      "value": "12.34",
+      "subject": "alpha-core",
+      "metric": "BLEU",
+      "unit": "分",
+      "value": "88.14",
       "initialValue": null,
       "conditions": [
-        "test-other",
-        "greedy decode",
-        "n=400"
+        "beam=4",
+        "test-clean",
+        "n=800"
       ],
       "conditionHints": [
-        "test-other",
-        "greedy decode"
+        "beam=4",
+        "test-clean"
       ],
-      "modelVersion": "beta-core",
+      "modelVersion": "alpha-core",
       "introducedTurn": 3,
       "correctionTurn": null,
       "sourceSeq": 19,
@@ -75,7 +75,7 @@
     }
   ],
   "expectedTaskState": {
-    "goal": "完成 beta 的最终评测报告并提交",
+    "goal": "完成 alpha 的最终评测报告并提交",
     "progress": [],
     "blockers": [],
     "openItems": []
@@ -89,7 +89,7 @@
     "phrases": []
   },
   "forbiddenFromSessions": [
-    "88.14"
+    "12.34"
   ],
   "expectedCounts": {
     "activeFacts": 1,
@@ -100,30 +100,30 @@
   },
   "questions": [
     {
-      "id": "q-isolation-own-beta",
+      "id": "q-isolation-own-alpha",
       "kind": "isolation",
-      "lang": "en",
-      "query": "What WER did beta-core reach on test-other with greedy decode?",
+      "lang": "zh",
+      "query": "alpha-core 在 test-clean 上 beam=4 的 BLEU 是多少分？",
       "expect": {
         "factKeys": [
-          "beta_core"
+          "alpha_core"
         ],
         "values": [
-          "12.34"
+          "88.14"
         ],
-        "unit": "%",
+        "unit": "分",
         "conditions": [
-          "test-other",
-          "greedy decode"
+          "beam=4",
+          "test-clean"
         ],
-        "modelVersion": "beta-core",
+        "modelVersion": "alpha-core",
         "ruleKeys": [],
         "ruleMatches": [],
         "evidenceSeqs": [],
         "retrieval": "fact",
-        "rank1FactKey": "beta_core",
+        "rank1FactKey": "alpha_core",
         "forbiddenValues": [
-          "88.14"
+          "12.34"
         ],
         "mustNotContain": [],
         "guard": false,
@@ -131,10 +131,10 @@
       }
     },
     {
-      "id": "q-isolation-cross-beta",
+      "id": "q-isolation-cross-alpha",
       "kind": "isolation",
-      "lang": "zh",
-      "query": "alpha-core 在 test-clean 上的 BLEU 是多少？只根据本会话回答。",
+      "lang": "en",
+      "query": "What WER did beta-core reach on test-other? Answer only from this session.",
       "expect": {
         "factKeys": [],
         "values": [],
@@ -147,7 +147,7 @@
         "retrieval": "fact",
         "rank1FactKey": null,
         "forbiddenValues": [
-          "88.14"
+          "12.34"
         ],
         "mustNotContain": [],
         "guard": true,

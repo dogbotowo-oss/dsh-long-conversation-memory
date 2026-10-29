@@ -1,8 +1,10 @@
-# dsh-session-memory
+# dsh-long-conversation-memory
 
 DeepSeek Harness（DSH）长会话记忆插件。
 
-`dsh-session-memory` 在本地持久记录长会话已经确立的内容——用户明确的事实、决定、约束、偏好、任务状态与 skill 规则——并在每个模型步骤前，把一条受预算约束的证据消息注入上下文。它面向的是这样一类会话：早期指令、精确数字、更正与未完成的线索，本会被压缩、摘要或重启冲掉。
+## 简介
+
+`dsh-long-conversation-memory` 为 DSH 会话提供面向 100–1000+ 轮的持久、证据优先的长对话记忆：记录宿主已提交的会话事件，用确定性规则抽取事实、决定、更正与当前任务状态，把启用的 skill 索引为带版本的规则，并在每个模型步骤前按 token 预算注入一小段标注为"证据"的上下文。插件不额外调用模型、不修改宿主会话日志，所有数据以 SQLite 保存在本地。它面向的是这样一类会话：早期指令、精确数字、更正与未完成的线索，本会被压缩、摘要或重启冲掉；效果由离线长会话评测与两种基线对照测量（见[评测结果](#评测结果实测)）。
 
 已在 **DSH 0.2.1-rc.3** 上验证。全部数据留在本机。
 
@@ -120,7 +122,7 @@ memory status
 
 | 分组 | 用途 |
 | --- | --- |
-| `enabled`、`dataDir`、`dbFile` | 总开关与数据库位置。`dataDir` 为空表示 `<DSH_HOME>/session-memory/`。 |
+| `enabled`、`dataDir`、`dbFile` | 总开关与数据库位置。`dataDir` 为空表示 `<DSH_HOME>/long-conversation-memory/`。 |
 | `assembly` | 注入消息预算（`softBudgetTokens`）、各部分上限与重新注入策略。`evidenceTypes` 决定哪些原始事件类型可以被逐字引用；默认 `["user/message"]`，工具输出（不可信、可能含注入内容）仍会存储和可搜索，但默认不粘贴进请求。 |
 | `extraction` | 确定性抽取开关；`recordAssistantProposals` 控制是否保存助手建议。 |
 | `retrieval` | 候选数量上限与排序加权；`minScore` 过滤弱命中。 |
@@ -152,7 +154,7 @@ memory status
 
 ## 数据与存储
 
-- 每个 DSH home 一个 SQLite 文件：`<DSH_HOME>/session-memory/memory.sqlite`（可用 `dataDir`/`dbFile` 覆盖）。通过 `node:sqlite` 以 WAL 模式打开。
+- 每个 DSH home 一个 SQLite 文件：`<DSH_HOME>/long-conversation-memory/memory.sqlite`（可用 `dataDir`/`dbFile` 覆盖）。通过 `node:sqlite` 以 WAL 模式打开。
 - 表：`events`、`memory_items`、`memory_events`、`task_state`、`checkpoints`、`skill_versions`、`skill_files`、`rules`、`rule_overrides`、`assembly_logs`、`validation_logs`、`archive`、`pending_extraction`、`sessions`、`meta`，外加两个 FTS5 索引。
 - `events` 是完整审计记录：宿主提交的事件都会保存（包括其他插件注入的生成上下文，按 `source.kind` 区分）。"什么算证据"由各消费方执行：抽取只取真实用户输入，检索过滤生成上下文，组装默认只逐字引用 `user/message`。因此工具输出可搜索但默认不进入请求。
 - 原始证据只追加。派生索引可重建；修订流程从不删除记忆行（撤回是状态变更；purge 是显式且不可逆的命令）。
@@ -172,20 +174,20 @@ memory status
 
 ## 评测结果（实测）
 
-离线评测（`node scripts/eval.mjs --profile full`）在带独立答案表的种子合成会话上比较三种基线：仅 skill、skill + 滚动摘要、本插件。各项指标分开报告，不合并为单一分数。测量时间 2026-10-29，Node v24.19.0，种子 `dsh-session-memory-eval-v1`（6 个会话，100/200/500/1000 轮，68 个问题）：
+离线评测（`node scripts/eval.mjs --profile full`）在带独立答案表的种子合成会话上比较三种基线：仅 skill、skill + 滚动摘要、本插件。各项指标分开报告，不合并为单一分数。测量时间 2026-10-29，Node v24.19.0，种子 `dsh-long-conversation-memory-eval-v1`（6 个会话，100/200/500/1000 轮，68 个问题）：
 
 | 指标 | 仅 skill | skill + 滚动摘要 | 本插件 |
 | --- | --- | --- | --- |
 | 存储正确性（答案表断言） | 不适用 | 不适用 | **100.0%**（338/338） |
 | 检索召回 / 首位命中 | 不适用 | 不适用 | **84.0% / 76.5%** |
 | 组装覆盖率 | 46.0% | 46.0% | **86.2%** |
-| 每问额外 token（估计） | 352.0 | 541.6 | 1157.3 |
-| 延迟 均值 / p95 | 0.14 / 0.02 ms | 0.01 / 0.02 ms | 10.4 / 32.1 ms |
+| 每问额外 token（估计） | 352.0 | 540.7 | 1157.6 |
+| 延迟 均值 / p95 | 0.0 / 0.0 ms | 0.0 / 0.0 ms | 13.2 / 40.2 ms |
 | 规则覆盖 / 任务状态准确率 | 100.0% / 不适用 | 100.0% / 不适用 | 100.0% / 100.0% |
 | 守卫通过率（禁用/必须出现的术语） | 100.0% | 100.0% | 100.0% |
 | 硬性不变量 | 不适用 | 不适用 | **9/9 通过** |
 
-本插件注入的 token 约为基线的 2–3.5 倍，覆盖的答案表条目约为 2.4 倍；延迟为本地毫秒级，且不额外调用模型。token 数按字符估算，默认不对模型回答质量作任何声明（确切协议、分尺寸明细与可选 LLM 回答评测见 [docs/evaluation.md](docs/evaluation.md)）。1000 轮长会话由 `full` 配置覆盖：从 100 到 1000 轮，组装覆盖率稳定在 85.4%，而基线稳定在 46.3%。
+本插件注入的 token 约为基线的 2.1–3.3 倍，覆盖的答案表条目约为 1.9 倍；延迟为本地毫秒级，且不额外调用模型。token 数按字符估算，默认不对模型回答质量作任何声明（确切协议、分尺寸明细与可选 LLM 回答评测见 [docs/evaluation.md](docs/evaluation.md)）。1000 轮长会话由 `full` 配置覆盖：从 100 到 1000 轮，组装覆盖率稳定在 85.4%，而基线稳定在 46.3%。
 
 ## 已知限制
 

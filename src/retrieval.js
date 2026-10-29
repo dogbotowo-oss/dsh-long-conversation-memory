@@ -4,7 +4,7 @@
  * words and CJK n-grams; exact matching handles paths, ids, numbers and
  * entities; every hit can be expanded to the original event text.
  *
- * @module dsh-session-memory/retrieval
+ * @module dsh-long-conversation-memory/retrieval
  */
 
 import { EVIDENCE_TYPES } from './core/constants.js'

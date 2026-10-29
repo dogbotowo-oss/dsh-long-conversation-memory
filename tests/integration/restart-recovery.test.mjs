@@ -101,7 +101,7 @@ test('restart keeps memory, evidence and checkpoint; backlog replay is idempoten
   const nextMessage = second.host.emitUser(resumed, '下一步：把准确率结果写进第 3 节。')
   const decision = await second.host.preStep(resumed, { messages: [nextMessage], turn: 2, step: 1 })
   const injected = decision.messages[decision.messages.length - 1]
-  assert.equal(injected.source.kind, 'session-memory')
+  assert.equal(injected.source.kind, 'long-conversation-memory')
   assert.match(injected.content[0].text, /79\.87/, 'a related query after restart must retrieve the stored number')
   const finalCheckpoint = second.runtime.store.getCheckpoint(sessionId)
   assert.ok(finalCheckpoint.lastEventSeq > checkpointBefore.lastEventSeq, 'the checkpoint advances after new events')
@@ -109,7 +109,7 @@ test('restart keeps memory, evidence and checkpoint; backlog replay is idempoten
   // 4. Export is a complete recovery snapshot (it may also contain the item the
   // new turn derived, so compare with a lower bound of the pre-restart items).
   const exported = second.runtime.store.exportSession(sessionId, { includeEvents: true })
-  assert.equal(exported.format, 'dsh-session-memory-export')
+  assert.equal(exported.format, 'dsh-long-conversation-memory-export')
   assert.ok(exported.memoryItems.length >= itemsAfterReplay.length)
   assert.ok(exported.events.length >= eventsAfterReplay.length)
 })

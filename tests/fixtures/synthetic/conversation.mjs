@@ -34,8 +34,8 @@ export const SYNTHETIC_PROJECT = 'mimir-eval'
 /** Synthetic host version marker. */
 export const SYNTHETIC_DSH_VERSION = 'synthetic-0.1'
 
-export const SESSION_FORMAT = 'dsh-session-memory-eval-session'
-export const ANSWER_KEY_FORMAT = 'dsh-session-memory-eval-answer-key'
+export const SESSION_FORMAT = 'dsh-long-conversation-memory-eval-session'
+export const ANSWER_KEY_FORMAT = 'dsh-long-conversation-memory-eval-answer-key'
 
 /** Scenario ids. */
 export const SCENARIO_LONG_HAUL = 'long-haul'
@@ -678,7 +678,7 @@ function compactionSummaryText(turn, facts) {
 function staleSnapshotText(turn, facts) {
   const bleu = facts.find((fact) => fact.key === 'bleu_test_clean')
   const stale = bleu !== undefined ? `mimir-13b BLEU=${bleu.initialValueText} 分（旧值，可能已被更正）` : '无'
-  return `[session-memory snapshot epoch=${turn}] 最近摘要：${stale}。其余细节略。`
+  return `[long-conversation-memory snapshot epoch=${turn}] 最近摘要：${stale}。其余细节略。`
 }
 
 /** @param {number} turn */
@@ -711,7 +711,7 @@ function buildLongHaulTurn(builder, context) {
       turn,
     )
     builder.push('compaction/end', { turn, compactedSeqs }, turn)
-    builder.userMessage(staleSnapshotText(turn, facts), turn, { sourceKind: 'session-memory' })
+    builder.userMessage(staleSnapshotText(turn, facts), turn, { sourceKind: 'long-conversation-memory' })
   }
 
   builder.push('turn/start', { turn }, turn)

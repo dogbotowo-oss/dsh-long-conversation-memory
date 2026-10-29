@@ -12,7 +12,7 @@
  * - numbers are stored together with their unit and qualifying conditions;
  * - extraction is idempotent per session event sequence number.
  *
- * @module dsh-session-memory/memory/extraction
+ * @module dsh-long-conversation-memory/memory/extraction
  */
 
 import { extractNumbers, normalizeText, nowIso, oneLine, tokenize } from '../core/util.js'
@@ -622,7 +622,7 @@ export class SessionExtractor {
             const message = error instanceof Error ? error.message : String(error)
             this.store.markPendingExtraction(sessionId, Number(event.seq), message)
             errors.push({ seq: Number(event.seq), message })
-            this.logger?.warn?.(`session-memory: extraction failed at seq ${event.seq}: ${message}`)
+            this.logger?.warn?.(`long-conversation-memory: extraction failed at seq ${event.seq}: ${message}`)
           }
           processed += 1
           lastSeq = Math.max(lastSeq, Number(event.seq))

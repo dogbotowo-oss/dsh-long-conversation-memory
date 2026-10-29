@@ -448,7 +448,7 @@ test('exportSession omits raw events unless requested', () => {
   store.logAssembly({ sessionId, trigger: 'pre-step', budgetTokens: 3000, usedTokens: 10, tokenSource: 'estimate', injected: true, contentHash: 'h' })
 
   const exported = store.exportSession(sessionId)
-  assert.equal(exported.format, 'dsh-session-memory-export')
+  assert.equal(exported.format, 'dsh-long-conversation-memory-export')
   assert.equal(exported.version, 1)
   assert.ok(typeof exported.exportedAt === 'string')
   assert.equal(exported.session.sessionId, sessionId)

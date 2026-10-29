@@ -96,10 +96,10 @@ test('the same rendered memory block is never appended twice', async (t) => {
 
   /** @type {number} */
   const memoryCount = () =>
-    host.stateOf(session).messages.filter((entry) => entry.message?.source?.kind === 'session-memory').length
+    host.stateOf(session).messages.filter((entry) => entry.message?.source?.kind === 'long-conversation-memory').length
 
   const first = await host.preStep(session, { messages: [userMessage], turn: 1, step: 1 })
-  assert.equal(first.messages.filter((entry) => entry.source?.kind === 'session-memory').length, 1)
+  assert.equal(first.messages.filter((entry) => entry.source?.kind === 'long-conversation-memory').length, 1)
   assert.equal(memoryCount(), 1)
 
   // A retry may legitimately render a different (smaller) block once the first
@@ -114,7 +114,7 @@ test('the same rendered memory block is never appended twice', async (t) => {
 
   const hashes = host
     .stateOf(session)
-    .messages.filter((entry) => entry.message?.source?.kind === 'session-memory')
+    .messages.filter((entry) => entry.message?.source?.kind === 'long-conversation-memory')
     .map((entry) => entry.message.source.contentHash)
   assert.equal(new Set(hashes).size, hashes.length, 'each visible block has a unique content hash')
 })

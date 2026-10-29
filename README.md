@@ -1,13 +1,20 @@
-# dsh-session-memory
+# dsh-long-conversation-memory
 
 Long-conversation memory for [DeepSeek Harness](https://github.com/deepseek-ai) (DSH).
 
-`dsh-session-memory` keeps a durable, local record of what a long session has
-established — explicit facts, decisions, constraints, preferences, task state
-and skill rules — and injects a small, budgeted evidence message back into
-context before each model step. It is built for sessions where early
+## Summary
+
+`dsh-long-conversation-memory` gives a DSH session a durable, evidence-first
+memory across 100–1000+ turns: it records committed conversation events,
+extracts facts, decisions, corrections and the current task state with
+deterministic rules, indexes enabled skills as versioned rules, and injects a
+small, evidence-labelled context block before each model step under a token
+budget. It never calls a model of its own, never edits host session logs, and
+stores everything locally in SQLite. It is built for sessions where early
 instructions, exact numbers, corrections and open threads would otherwise be
-lost to compaction, summarization or a restart.
+lost to compaction, summarization or a restart — and it is measured against
+two baselines by an offline long-session evaluation harness (see
+[Evaluation results](#evaluation-results-measured)).
 
 Verified against **DSH 0.2.1-rc.3**. Runs entirely on your machine.
 
@@ -166,7 +173,7 @@ Key groups:
 
 | Group | Purpose |
 | --- | --- |
-| `enabled`, `dataDir`, `dbFile` | Master switch and database location. Empty `dataDir` means `<DSH_HOME>/session-memory/`. |
+| `enabled`, `dataDir`, `dbFile` | Master switch and database location. Empty `dataDir` means `<DSH_HOME>/long-conversation-memory/`. |
 | `assembly` | Injected-message budget (`softBudgetTokens`), section limits and re-injection policy. `evidenceTypes` decides which raw event types may be quoted inline; the default `["user/message"]` keeps tool output (untrusted, possibly injected) searchable but not pasted into the request. |
 | `extraction` | Deterministic extraction switches; `recordAssistantProposals` controls whether assistant proposals are stored. |
 | `retrieval` | Candidate limit and ranking boosts; `minScore` filters weak hits. |
@@ -203,7 +210,7 @@ policy the plugin detected and warns when compatibility could not be confirmed.
 
 ## Data and storage
 
-- One SQLite file per DSH home: `<DSH_HOME>/session-memory/memory.sqlite`
+- One SQLite file per DSH home: `<DSH_HOME>/long-conversation-memory/memory.sqlite`
   (override with `dataDir`/`dbFile`). Opened through `node:sqlite` with WAL mode.
 - Tables: `events`, `memory_items`, `memory_events`, `task_state`, `checkpoints`,
   `skill_versions`, `skill_files`, `rules`, `rule_overrides`, `assembly_logs`,
@@ -243,7 +250,7 @@ The offline harness (`node scripts/eval.mjs --profile full`) compares three
 baselines on seeded synthetic sessions with an independent answer key:
 `skill-only`, `skill + rolling summary`, and this plugin. Metrics are reported
 separately, never merged into one score. Measured on 2026-10-29, Node v24.19.0,
-seed `dsh-session-memory-eval-v1` (6 sessions, 100/200/500/1000 turns, 68
+seed `dsh-long-conversation-memory-eval-v1` (6 sessions, 100/200/500/1000 turns, 68
 questions):
 
 | Metric | Skill only | Skill + rolling summary | This plugin |
@@ -251,14 +258,14 @@ questions):
 | Storage correctness (answer-key assertions) | n/a | n/a | **100.0%** (338/338) |
 | Retrieval recall / rank-1 | n/a | n/a | **84.0% / 76.5%** |
 | Assembly coverage | 46.0% | 46.0% | **86.2%** |
-| Extra tokens per query (estimate) | 352.0 | 541.6 | 1157.3 |
-| Latency mean / p95 | 0.14 / 0.02 ms | 0.01 / 0.02 ms | 10.4 / 32.1 ms |
+| Extra tokens per query (estimate) | 352.0 | 540.7 | 1157.6 |
+| Latency mean / p95 | 0.0 / 0.0 ms | 0.0 / 0.0 ms | 13.2 / 40.2 ms |
 | Rule coverage / task-state accuracy | 100.0% / n/a | 100.0% / n/a | 100.0% / 100.0% |
 | Guard pass rate (forbidden/required terms) | 100.0% | 100.0% | 100.0% |
 | Hard invariants | n/a | n/a | **9/9 pass** |
 
-The plugin injects roughly 2–3.5× the baseline token count while covering about
-2.4× more answer-key items, at tens of milliseconds of local latency and with no
+The plugin injects roughly 2.1–3.3× the baseline token count while covering about
+1.9× more answer-key items, at tens of milliseconds of local latency and with no
 extra model calls. Token counts are character-based estimates, and there is no
 LLM answer-quality claim by default (see
 [docs/evaluation.md](docs/evaluation.md) for the exact protocol, per-size

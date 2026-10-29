@@ -2,7 +2,7 @@
  * Dependency-free helpers shared by every module: hashing, stable JSON, time,
  * text normalization, query tokenization and token estimation.
  *
- * @module dsh-session-memory/core/util
+ * @module dsh-long-conversation-memory/core/util
  */
 
 import { createHash, randomUUID } from 'node:crypto'

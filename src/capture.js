@@ -5,7 +5,7 @@
  * `events` (and archived for content the host log may not replay), never
  * replaced by a derived summary. Derivation happens in `memory/extraction.js`.
  *
- * @module dsh-session-memory/capture
+ * @module dsh-long-conversation-memory/capture
  */
 
 import { CAPTURED_EVENT_TYPES, COMPACTION_EVENT_TYPES, LIMITS } from './core/constants.js'
@@ -19,7 +19,7 @@ const CAPTURED = new Set([...CAPTURED_EVENT_TYPES, ...COMPACTION_EVENT_TYPES])
  * and never treated as user instruction.
  */
 export const GENERATED_SOURCE_KINDS = new Set([
-  'session-memory',
+  'long-conversation-memory',
   'runtime-context',
   'agent-instructions',
   'skill-invocation',

@@ -7,7 +7,7 @@
  * - the host session-query FTS database is a derived host asset we must not
  *   write to. See docs/architecture.md "Persistence" for the full rationale.
  *
- * @module dsh-session-memory/core/db
+ * @module dsh-long-conversation-memory/core/db
  */
 
 import { DatabaseSync } from 'node:sqlite'

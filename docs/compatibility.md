@@ -1,6 +1,6 @@
 # Compatibility
 
-This page records what `dsh-session-memory` expects from the DSH host, how those
+This page records what `dsh-long-conversation-memory` expects from the DSH host, how those
 expectations were verified, how the plugin coordinates with context-compaction
 plugins, and what is deliberately left unverified. It separates "verified in the
 shipped runtime" from "assumed to keep working".
@@ -66,7 +66,7 @@ Cordis context (`ctx.on`, `ctx.get`, `ctx.commands.register`). The core modules
 The plugin is a plain Cordis plugin:
 
 ```js
-export const name = 'session-memory'
+export const name = 'long-conversation-memory'
 export const version = '0.1.0'
 export const inject = []            // loads on any profile
 export function apply(ctx, config) { /* normalize, create runtime, ctx.effect(...) */ }
@@ -141,7 +141,7 @@ host packages (see above). `host.js` reproduces the verified behaviour with
   id: randomUUID(),
   role: 'user',
   content: [{ type: 'text', text }],
-  source: { kind: 'session-memory', form: 'snapshot', contentHash, sessionId, turn?, step? },
+  source: { kind: 'long-conversation-memory', form: 'snapshot', contentHash, sessionId, turn?, step? },
 }
 ```
 
@@ -278,7 +278,7 @@ The plugin keeps its own directory under the DSH home:
 
 1. `dataDir` config value, if set (with `~` and simple `$VAR` expansion);
 2. otherwise `$DSH_HOME`, or `~/.dsh` when the variable is unset, plus
-   `session-memory/`;
+   `long-conversation-memory/`;
 3. the database file is `dbFile` (default `memory.sqlite`) inside that
    directory.
 

@@ -26,7 +26,7 @@
  * - Everything registered through `ctx.on` / `ctx.commands.register` is
  *   disposed by cordis with the plugin fiber; helpers here return the disposer.
  *
- * @module dsh-session-memory/adapter/host
+ * @module dsh-long-conversation-memory/adapter/host
  */
 
 import { randomUUID } from 'node:crypto'
@@ -37,7 +37,7 @@ import { MEMORY_SOURCE_FORM, MEMORY_SOURCE_KIND } from '../core/constants.js'
 import { contentBlocksToText, isPlainObject } from '../core/util.js'
 
 export const DSH_HOME_ENV = 'DSH_HOME'
-export const PLUGIN_STATE_DIR_NAME = 'session-memory'
+export const PLUGIN_STATE_DIR_NAME = 'long-conversation-memory'
 
 /**
  * Resolve the plugin's local data directory.

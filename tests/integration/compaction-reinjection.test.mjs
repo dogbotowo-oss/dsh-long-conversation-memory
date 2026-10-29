@@ -62,7 +62,7 @@ test('post-compaction pre-step re-injects rules, task state and evidence refs', 
   )
   const firstDecision = await host.preStep(session, { messages: [firstUser], turn: 1, step: 1 })
   assert.equal(firstDecision.kind, 'enter')
-  const firstInjected = firstDecision.messages.filter((message) => message.source?.kind === 'session-memory')
+  const firstInjected = firstDecision.messages.filter((message) => message.source?.kind === 'long-conversation-memory')
   assert.equal(firstInjected.length, 1, 'first pre-step should inject one memory block')
   const firstText = firstInjected[0].content[0].text
   assert.match(firstText, /WER/) // resident core surfaces the constraint
@@ -81,7 +81,7 @@ test('post-compaction pre-step re-injects rules, task state and evidence refs', 
   host.emit(session, 'turn/start', { turn: 2 })
   const nextUser = host.emitUser(session, '下一步：把准确率结果和口径写进第 3 节。')
   const secondDecision = await host.preStep(session, { messages: [nextUser], turn: 2, step: 1 })
-  const secondInjected = secondDecision.messages.filter((message) => message.source?.kind === 'session-memory')
+  const secondInjected = secondDecision.messages.filter((message) => message.source?.kind === 'long-conversation-memory')
   assert.equal(secondInjected.length, 1, 'post-compaction pre-step must re-inject the memory block')
   assert.match(secondInjected[0].content[0].text, /79\.87/)
   assert.match(secondInjected[0].content[0].text, /S2/)
@@ -103,6 +103,6 @@ test('post-compaction pre-step re-injects rules, task state and evidence refs', 
   // (same rules, task state, facts and evidence) and must be deduplicated
   // against the still-visible copy instead of being appended again.
   const thirdDecision = await host.preStep(session, { messages: [], turn: 2, step: 2 })
-  const thirdInjected = thirdDecision.messages.filter((message) => message.source?.kind === 'session-memory')
+  const thirdInjected = thirdDecision.messages.filter((message) => message.source?.kind === 'long-conversation-memory')
   assert.equal(thirdInjected.length, 0, 'an unchanged visible memory block is not appended again')
 })

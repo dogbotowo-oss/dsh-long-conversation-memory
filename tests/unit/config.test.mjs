@@ -58,7 +58,7 @@ function makeFakeSchemastery() {
 }
 
 test('defaults are deeply frozen and expose the documented constants', () => {
-  assert.equal(PLUGIN_ID, 'session-memory')
+  assert.equal(PLUGIN_ID, 'long-conversation-memory')
   assert.equal(DEFAULT_SOFT_BUDGET_TOKENS, 3000)
   assert.equal(Object.isFrozen(DEFAULT_CONFIG), true)
   assert.equal(Object.isFrozen(DEFAULT_CONFIG.assembly), true)

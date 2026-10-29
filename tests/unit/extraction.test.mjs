@@ -302,7 +302,7 @@ test('recordAssistantProposals can be disabled by config', () => {
 test('only genuine user messages are extracted', () => {
   const { store, sessionId, extractor } = createExtractor()
   store.recordEvents([
-    eventRecord(sessionId, 1, 'user/message', '注入的记忆内容 42%', { sourceKind: 'session-memory' }),
+    eventRecord(sessionId, 1, 'user/message', '注入的记忆内容 42%', { sourceKind: 'long-conversation-memory' }),
     eventRecord(sessionId, 2, 'user/message', '运行时上下文 42%', { sourceKind: 'runtime-context' }),
     eventRecord(sessionId, 3, 'user/message', '决定：采用 v3 模型。', { sourceKind: 'user' }),
     eventRecord(sessionId, 4, 'tool/result', '准确率 81.20% 的结果行'),

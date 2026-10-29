@@ -1,7 +1,7 @@
 {
-  "name": "dsh-session-memory",
+  "name": "dsh-long-conversation-memory",
   "version": "0.1.0",
-  "description": "Long-conversation session memory for DeepSeek Harness: durable evidence, skill rules, task state and budgeted context assembly.",
+  "description": "Long-conversation memory for DeepSeek Harness (DSH): evidence-first SQLite memory, versioned skill rules, task state and budgeted evidence context for 100-1000+ turn sessions.",
   "type": "module",
   "main": "./src/index.js",
   "exports": {
@@ -26,10 +26,12 @@
     "dsh",
     "deepseek-harness",
     "plugin",
+    "long-conversation",
     "long-context",
     "memory",
     "session",
-    "sqlite"
+    "sqlite",
+    "compaction"
   ],
   "license": "MIT",
   "engines": {

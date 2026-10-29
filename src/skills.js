@@ -12,7 +12,7 @@
  * index*; users can override them (`ctx.store.setRuleOverride`) and the
  * override is preserved across skill revisions for the same rule key.
  *
- * @module dsh-session-memory/skills
+ * @module dsh-long-conversation-memory/skills
  */
 
 import { RULE_CATEGORIES } from './core/constants.js'

@@ -1,11 +1,11 @@
 {
-  "format": "dsh-session-memory-eval-answer-key",
+  "format": "dsh-long-conversation-memory-eval-answer-key",
   "version": 1,
   "scenario": "long-haul",
   "group": null,
-  "sessionId": "lh-20-40011b",
+  "sessionId": "lh-20-455d9f",
   "turns": 20,
-  "seed": "dsh-session-memory-eval-v1",
+  "seed": "dsh-long-conversation-memory-eval-v1",
   "skill": {
     "name": "synthetic-eval-runbook",
     "rules": [
@@ -54,8 +54,8 @@
       "subject": "mimir-13b",
       "metric": "BLEU",
       "unit": "分",
-      "value": "32.60",
-      "initialValue": "32.01",
+      "value": "31.36",
+      "initialValue": "30.89",
       "conditions": [
         "beam=5",
         "test-clean",
@@ -128,7 +128,7 @@
       "subject": "mimir-7b",
       "metric": "p95 latency",
       "unit": "毫秒",
-      "value": "143.2",
+      "value": "148.3",
       "initialValue": null,
       "conditions": [
         "seq_len=2048",
@@ -192,7 +192,7 @@
           "bleu_test_clean"
         ],
         "values": [
-          "32.60"
+          "31.36"
         ],
         "unit": "分",
         "conditions": [
@@ -210,7 +210,7 @@
         "guard": false,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-fact-wer_test_other",
@@ -239,7 +239,7 @@
         "guard": false,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-fact-wer_test_other_dev",
@@ -268,7 +268,7 @@
         "guard": false,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-fact-latency_p95",
@@ -280,7 +280,7 @@
           "latency_p95"
         ],
         "values": [
-          "143.2"
+          "148.3"
         ],
         "unit": "毫秒",
         "conditions": [
@@ -298,7 +298,7 @@
         "guard": false,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-rule-unit-and-condition",
@@ -325,7 +325,7 @@
         "guard": false,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-rule-chinese-units",
@@ -352,7 +352,7 @@
         "guard": false,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-evidence-bleu_test_clean",
@@ -379,7 +379,7 @@
         "guard": false,
         "assemblyOptional": true
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-pollution-learning-rate",
@@ -406,7 +406,7 @@
         "guard": true,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     },
     {
       "id": "q-pollution-system-bleu",
@@ -433,7 +433,7 @@
         "guard": true,
         "assemblyOptional": false
       },
-      "sessionId": "lh-20-40011b"
+      "sessionId": "lh-20-455d9f"
     }
   ]
 }

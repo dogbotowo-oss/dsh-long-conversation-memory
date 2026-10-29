@@ -13,7 +13,7 @@
  *   (used in DSH `tools/pre-execute`), not a text check;
  * - `script` — user module exporting a default check function.
  *
- * @module dsh-session-memory/validation
+ * @module dsh-long-conversation-memory/validation
  */
 
 import fs from 'node:fs'
@@ -101,7 +101,7 @@ export class Validator {
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error)
         errors.push(`check ${id} failed to run: ${message}`)
-        this.logger?.warn?.(`session-memory: validation check ${id} failed: ${message}`)
+        this.logger?.warn?.(`long-conversation-memory: validation check ${id} failed: ${message}`)
       }
     }
     const deterministic = violations.every((violation) => violation.deterministic)
@@ -150,7 +150,7 @@ export class Validator {
       const resolved = path.isAbsolute(rawPath) ? rawPath : path.join(input.cwd ?? process.cwd(), rawPath)
       const deny = (reason) => ({
         kind: 'deny',
-        reason: `session-memory precondition: ${precondition.message ?? reason}`,
+        reason: `long-conversation-memory precondition: ${precondition.message ?? reason}`,
         info: { checkId: precondition.id ?? null, path: rawPath, resolvedPath: resolved, deterministic: true },
       })
       const exists = fs.existsSync(resolved)

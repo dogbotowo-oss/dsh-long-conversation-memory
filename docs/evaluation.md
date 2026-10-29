@@ -1,6 +1,6 @@
 # Evaluation protocol
 
-This document defines how `dsh-session-memory` is measured. The protocol is
+This document defines how `dsh-long-conversation-memory` is measured. The protocol is
 deliberately conservative: it separates **storage correctness**, **retrieval**,
 **assembly**, **token cost** and **latency**, and never merges them into a single
 headline score. A plugin that scores well on one axis may score poorly on
@@ -153,7 +153,7 @@ human-readable table. The JSON report has this shape:
 
 ```jsonc
 {
-  "format": "dsh-session-memory-eval-report",
+  "format": "dsh-long-conversation-memory-eval-report",
   "version": 1,
   "generatedAt": "…",
   "profile": "smoke|standard|full|seed",
@@ -199,13 +199,13 @@ never mix numbers from a different commit, seed or profile.
 
 Run metadata (both tables):
 
-- plugin version 0.1.0, code commit `bd90ced` (the commit these numbers were measured on);
+- plugin version 0.1.0, code commit `<rename-commit>` (the project-rename commit these numbers were measured on);
 - DSH target: 0.2.1-rc.3 (interfaces verified; the harness is host-independent);
 - OS: Windows 10/11 x64, Node.js v24.19.0 (`node:sqlite` with FTS5);
-- answerer: `deterministic` (no model calls), seed `dsh-session-memory-eval-v1`;
-- date: 2026-10-29; wall clock: standard 2.2 s, full 5.1 s;
-- reports: `eval-results/2026-10-29T11-20-03-507Z-standard.json`,
-  `eval-results/2026-10-29T11-20-19-954Z-full.json` (gitignored; regenerate with
+- answerer: `deterministic` (no model calls), seed `dsh-long-conversation-memory-eval-v1`;
+- date: 2026-10-29; wall clock: standard 2.2 s, full 4.7 s;
+- reports: `eval-results/2026-10-29T11-33-36-107Z-standard.json`,
+  `eval-results/2026-10-29T11-33-52-989Z-full.json` (gitignored; regenerate with
   the commands above).
 
 ### `standard` profile — 5 sessions, 860 turns, 52 questions
@@ -215,9 +215,9 @@ Run metadata (both tables):
 | `storageCorrectness` | n/a | n/a | 100.0% (270/270) |
 | `retrievalRecall` | n/a | n/a | 84.2% (32/38) |
 | `retrievalRank1` | n/a | n/a | 76.9% (20/26) |
-| `assemblyCoverage` | 40.0% | 40.0% | 86.5% |
-| `extraTokensEstimate` (mean) | 352.0 | 499.0 | 1151.4 |
-| `latencyMs` mean / p95 | 0.14 / 0.02 | 0.01 / 0.02 | 8.7 / 16.8 |
+| `assemblyCoverage` | 45.9% | 45.9% | 86.5% |
+| `extraTokensEstimate` (mean) | 352.0 | 538.6 | 1154.4 |
+| `latencyMs` mean / p95 | 0.0 / 0.0 | 0.0 / 0.0 | 8.1 / 20.3 |
 | `ruleCoverage` | 100.0% | 100.0% | 100.0% |
 | `taskStateAccuracy` | n/a | n/a | 100.0% (20/20) |
 | `guardPassRate` | 100.0% | 100.0% | 100.0% |
@@ -228,11 +228,11 @@ Run metadata (both tables):
 | Metric | `skill-only` | `rolling-summary` | `memory` (this plugin) |
 | --- | --- | --- | --- |
 | `storageCorrectness` | n/a | n/a | 100.0% (338/338) |
-| `retrievalRecall` | n/a | n/a | 84.0% |
-| `retrievalRank1` | n/a | n/a | 76.5% |
+| `retrievalRecall` | n/a | n/a | 84.0% (42/50) |
+| `retrievalRank1` | n/a | n/a | 76.5% (26/34) |
 | `assemblyCoverage` | 46.0% | 46.0% | 86.2% |
-| `extraTokensEstimate` (mean) | 352.0 | 541.6 | 1157.3 |
-| `latencyMs` mean / p95 | 0.14 / 0.02 | 0.01 / 0.02 | 10.4 / 32.1 |
+| `extraTokensEstimate` (mean) | 352.0 | 540.7 | 1157.6 |
+| `latencyMs` mean / p95 | 0.0 / 0.0 | 0.0 / 0.0 | 13.2 / 40.2 |
 | `ruleCoverage` | 100.0% | 100.0% | 100.0% |
 | `taskStateAccuracy` | n/a | n/a | 100.0% (24/24) |
 | `guardPassRate` | 100.0% | 100.0% | 100.0% |
@@ -246,8 +246,8 @@ Hard invariants: 9/9 pass in both profiles (`superseded_not_active`,
 Assembly coverage by session size (`full`, `memory` vs `skill-only`): 40 turns
 100.0% vs 40.0%; 100 turns 85.4% vs 46.3%; 200 turns 85.4% vs 46.3%; 500 turns
 85.4% vs 46.3%; 1000 turns 85.4% vs 46.3%. Multi-session isolation scenario:
-100.0% vs 40.0%. The plugin's injected context is therefore roughly 2.6–3.5× the
-baseline token cost while covering ~2.4× more answer-key items; latency stays at
+100.0% vs 40.0%. The plugin's injected context is therefore roughly 2.1–3.3× the
+baseline token cost while covering ~1.9× more answer-key items; latency stays at
 tens of milliseconds because retrieval is local SQLite and no model is called.
 
 These numbers are the deterministic harness's view of *storage, retrieval and
