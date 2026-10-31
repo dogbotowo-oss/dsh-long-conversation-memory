@@ -1,4 +1,4 @@
-# Evaluation protocol
+﻿# Evaluation protocol
 
 This document defines how `dsh-long-memory` is measured. The protocol is
 deliberately conservative: it separates **storage correctness**, **retrieval**,
@@ -22,7 +22,7 @@ Three baselines run over the same fixtures, seeds and questions:
 
 All three see identical conversation fixtures and queries. `skill-only` and
 `rolling-summary` have no local storage, so storage-only metrics are `null` for
-them — never fabricated as `0`.
+them 鈥?never fabricated as `0`.
 
 ## Session sizes and profiles
 
@@ -54,7 +54,7 @@ size.
 | Multi-session isolation | Two interleaved sessions (`iso-alpha-*`, `iso-beta-*`) with conflicting values; each must only recall its own. |
 | Instruction pollution in tool output | Tool results contain text that looks like user instructions; it must not be captured as user evidence or override rules. |
 | Chinese retrieval | Chinese questions over Chinese evidence (bigram/trigram search path). |
-| Long-haul retention | 100–1000 turn sessions where early facts are queried at the end. |
+| Long-haul retention | 100鈥?000 turn sessions where early facts are queried at the end. |
 
 Harness-level scenario ids currently reported are `long-haul` (all sizes) and
 `multi-session` (the isolation group). Questions carry a `kind` of `fact`,
@@ -104,7 +104,7 @@ must label them accordingly.
 The harness also checks correctness invariants that any run must satisfy. A run
 with a failed invariant exits non-zero even if all metrics look good:
 
-- `superseded_not_active` — a corrected value is `superseded`, and the new value
+- `superseded_not_active` 鈥?a corrected value is `superseded`, and the new value
   is the only active item for that key;
 - evidence is never duplicated by retried/duplicate events (sequence idempotency);
 - a session never retrieves another session's items (isolation);
@@ -155,15 +155,15 @@ human-readable table. The JSON report has this shape:
 {
   "format": "dsh-long-memory-eval-report",
   "version": 1,
-  "generatedAt": "…",
+  "generatedAt": "鈥?,
   "profile": "smoke|standard|full|seed",
-  "seed": "…",
+  "seed": "鈥?,
   "answerer": "deterministic|llm",
   "environment": {
-    "node": "…", "platform": "…",
+    "node": "鈥?, "platform": "鈥?,
     "plugin": { "available": true, "missingModules": [] }
   },
-  "fixtures": { "dir": "…", "regenerated": false, "sessions": 6, "groups": ["…"] },
+  "fixtures": { "dir": "鈥?, "regenerated": false, "sessions": 6, "groups": ["鈥?] },
   "metricOrder": ["storageCorrectness", "retrievalRecall", "retrievalRank1",
                   "assemblyCoverage", "extraTokensEstimate", "latencyMs",
                   "ruleCoverage", "taskStateAccuracy", "guardPassRate",
@@ -171,19 +171,19 @@ human-readable table. The JSON report has this shape:
   "metrics": {
     "storageCorrectness": { "skill-only": null, "rolling-summary": null, "memory": 0.0 },
     "retrievalRecall":    { "skill-only": 0.0, "rolling-summary": 0.0, "memory": 0.0 },
-    "latencyMs":          { "skill-only": { "p50": 0, "p95": 0, "totalMs": 0 }, "…": {} },
+    "latencyMs":          { "skill-only": { "p50": 0, "p95": 0, "totalMs": 0 }, "鈥?: {} },
     "llmAnswerAccuracy":  null
   },
-  "hardInvariants": [ { "id": "superseded_not_active", "status": "pass|fail", "detail": "…" } ],
-  "perScenario": [ { "scenario": "long-haul", "size": 100, "sessionIds": ["…"],
-                     "metrics": { "memory": "…" }, "storage": "…", "invariants": ["…"] } ],
-  "perSize":   [ { "size": 100, "metrics": { "…": "…" } } ],
-  "questions": [ { "sessionId": "…", "scenario": "…", "id": "…", "kind": "fact",
-                   "lang": "en", "query": "…",
+  "hardInvariants": [ { "id": "superseded_not_active", "status": "pass|fail", "detail": "鈥? } ],
+  "perScenario": [ { "scenario": "long-haul", "size": 100, "sessionIds": ["鈥?],
+                     "metrics": { "memory": "鈥? }, "storage": "鈥?, "invariants": ["鈥?] } ],
+  "perSize":   [ { "size": 100, "metrics": { "鈥?: "鈥? } } ],
+  "questions": [ { "sessionId": "鈥?, "scenario": "鈥?, "id": "鈥?, "kind": "fact",
+                   "lang": "en", "query": "鈥?,
                    "results": { "memory": { "retrievalRecall": 0.0, "retrievalRank1": 0.0,
                                             "assemblyCoverage": 0.0,
                                             "extraTokensEstimate": 0, "latencyMs": 0 } } } ],
-  "notes": ["Tokens are estimates…", "No LLM answer accuracy claimed…",
+  "notes": ["Tokens are estimates鈥?, "No LLM answer accuracy claimed鈥?,
             "Storage, retrieval, assembly, tokens and latency are deliberately reported separately and never merged into one score."]
 }
 ```
@@ -199,7 +199,7 @@ never mix numbers from a different commit, seed or profile.
 
 Run metadata (both tables):
 
-- plugin version 0.1.0, code commit `__CODE_COMMIT__` (the `dsh-long-memory`
+- plugin version 0.1.0, code commit `912ca83` (the `dsh-long-memory`
   unification commit these numbers were measured on);
 - DSH target: 0.2.1-rc.3 (interfaces verified; the harness is host-independent);
 - OS: Windows 10/11 x64, Node.js v24.19.0 (`node:sqlite` with FTS5);
@@ -209,7 +209,7 @@ Run metadata (both tables):
   `eval-results/2026-10-31T04-31-25-881Z-full.json` (gitignored; regenerate with
   the commands above).
 
-### `standard` profile — 5 sessions, 860 turns, 52 questions
+### `standard` profile 鈥?5 sessions, 860 turns, 52 questions
 
 | Metric | `skill-only` | `rolling-summary` | `memory` (this plugin) |
 | --- | --- | --- | --- |
@@ -224,7 +224,7 @@ Run metadata (both tables):
 | `guardPassRate` | 100.0% | 100.0% | 100.0% |
 | `llmAnswerAccuracy` | n/a | n/a | n/a (deterministic answerer) |
 
-### `full` profile — 6 sessions, 1880 turns (100/200/500/1000), 68 questions
+### `full` profile 鈥?6 sessions, 1880 turns (100/200/500/1000), 68 questions
 
 | Metric | `skill-only` | `rolling-summary` | `memory` (this plugin) |
 | --- | --- | --- | --- |
@@ -247,8 +247,8 @@ Hard invariants: 9/9 pass in both profiles (`superseded_not_active`,
 Assembly coverage by session size (`full`, `memory` vs `skill-only`): 40 turns
 100.0% vs 40.0%; 100 turns 85.4% vs 46.3%; 200 turns 85.4% vs 46.3%; 500 turns
 85.4% vs 46.3%; 1000 turns 85.4% vs 46.3%. Multi-session isolation scenario:
-100.0% vs 40.0%. The plugin's injected context is therefore roughly 2.1–3.3× the
-baseline token cost while covering ~1.9× more answer-key items; latency stays at
+100.0% vs 40.0%. The plugin's injected context is therefore roughly 2.1鈥?.3脳 the
+baseline token cost while covering ~1.9脳 more answer-key items; latency stays at
 tens of milliseconds because retrieval is local SQLite and no model is called.
 
 These numbers are the deterministic harness's view of *storage, retrieval and
