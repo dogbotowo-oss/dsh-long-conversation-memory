@@ -34,6 +34,11 @@
     "compaction"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dogbotowo-oss/long-memory.git"
+  },
+  "homepage": "https://awesome-dsh-plugin.com/p/dogbotowo-oss/long-memory/",
   "engines": {
     "node": "^22.15.0 || >=24.0.0"
   },
