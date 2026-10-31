@@ -71,7 +71,7 @@ test('deterministic checks are persisted and repair reminders are bounded', asyn
   assert.equal(repairs.length, 1, 'a failed deterministic check schedules one repair reminder')
   assert.match(repairs[0].content[0].text, /校验提醒/, 'the reminder labels itself as a derived check result')
   assert.match(repairs[0].content[0].text, /99\.99%/, 'the reminder quotes the violated value')
-  assert.equal(repairs[0].source.kind, 'long-conversation-memory')
+  assert.equal(repairs[0].source.kind, 'long-memory')
 
   const logs = runtime.store.listValidationLogs(sessionId, { limit: 20 })
   assert.equal(logs.length, 1)
@@ -121,7 +121,7 @@ test('file preconditions deny only when the configured condition is violated', a
     arguments: { path: 'outline.md', content: '大纲' },
   })
   assert.equal(missing.kind, 'deny', 'a mustExist precondition denies a missing file')
-  assert.match(String(missing.reason), /long-conversation-memory precondition/)
+  assert.match(String(missing.reason), /long-memory precondition/)
   assert.equal(missing.info?.deterministic, true)
 
   fs.writeFileSync(path.join(workingDir, 'outline.md'), '# outline\n')

@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes how `dsh-long-conversation-memory` is put together: the modules,
+This document describes how `dsh-long-memory` is put together: the modules,
 the event flow, the SQLite schema, the memory write rules, and the budgeted
 assembly pipeline. It documents what the source implements; approximate or
 planned behaviour is labelled as such.
@@ -14,7 +14,7 @@ no runtime dependencies beyond the DSH host and the Node.js standard library
 | Module | Responsibility |
 | --- | --- |
 | `src/index.js` | Plugin entry: normalizes config, opens the database, constructs services, binds host hooks, registers the `memory` command and exposes diagnostics. |
-| `src/config.js` | Default configuration, deep merge, numeric clamps and the Schemastery schema. An empty `dataDir` resolves to `<DSH_HOME>/long-conversation-memory`. |
+| `src/config.js` | Default configuration, deep merge, numeric clamps and the Schemastery schema. An empty `dataDir` resolves to `<DSH_HOME>/long-memory`. |
 | `src/core/constants.js` | Shared vocabulary: memory kinds, evidence types, statuses, rule categories, captured event types, DSH event names, limits and token-estimation constants. |
 | `src/core/schema.js` | SQL migrations (currently schema version 2: v2 adds `validation_logs`) and the list of report tables. |
 | `src/core/db.js` | `MemoryDatabase`: a thin wrapper over `node:sqlite`'s `DatabaseSync` with WAL mode, a statement cache, parameter normalization, savepoint-based transactions and an integrity check. |
@@ -107,7 +107,7 @@ appending its own labelled user-role message during `agent/pre-step`.
 
 The `events` table is an audit/replay record: every committed host event the
 plugin observes is stored, including messages other plugins inject (recognized by
-`source.kind` in `GENERATED_SOURCE_KINDS`: `long-conversation-memory`, `runtime-context`,
+`source.kind` in `GENERATED_SOURCE_KINDS`: `long-memory`, `runtime-context`,
 `agent-instructions`, `skill-invocation`, `time-context`, `compaction-checkpoint`,
 `compact-checkpoint`, `plan-mode`). Dropping rows would make event counts and
 replay-based restores disagree with the host log, so completeness is enforced at
@@ -134,7 +134,7 @@ expected, intentional behaviour, not a retrieval failure.
 
 Schema version 2 lives in `src/core/schema.js` (v1 created the core tables; v2
 added `validation_logs`). One SQLite file per DSH home;
-default `<DSH_HOME>/long-conversation-memory/memory.sqlite`. WAL, `synchronous=NORMAL`,
+default `<DSH_HOME>/long-memory/memory.sqlite`. WAL, `synchronous=NORMAL`,
 `busy_timeout=5000`.
 
 ### `events` — append-only raw evidence

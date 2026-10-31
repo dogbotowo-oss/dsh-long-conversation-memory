@@ -1,5 +1,5 @@
 {
-  "name": "dsh-long-conversation-memory",
+  "name": "dsh-long-memory",
   "version": "0.1.0",
   "description": "Long-conversation memory for DeepSeek Harness (DSH): evidence-first SQLite memory, versioned skill rules, task state and budgeted evidence context for 100-1000+ turn sessions.",
   "type": "module",
@@ -36,9 +36,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dogbotowo-oss/long-memory.git"
+    "url": "git+https://github.com/dogbotowo-oss/dsh-long-memory.git"
   },
-  "homepage": "https://awesome-dsh-plugin.com/p/dogbotowo-oss/long-memory/",
+  "homepage": "https://awesome-dsh-plugin.com/p/dogbotowo-oss/dsh-long-memory/",
   "engines": {
     "node": "^22.15.0 || >=24.0.0"
   },

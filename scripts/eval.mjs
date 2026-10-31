@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Reproducible evaluation harness for the `dsh-long-conversation-memory` plugin.
+ * Reproducible evaluation harness for the `dsh-long-memory` plugin.
  *
  * Compares three baselines on the same deterministic synthetic sessions:
  *

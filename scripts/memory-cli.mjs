@@ -25,12 +25,12 @@ import { DEFAULT_CONFIG, normalizeConfig } from '../src/config.js'
 import { PLUGIN_VERSION } from '../src/core/constants.js'
 import { resolveDataDir } from '../src/adapter/host.js'
 
-const USAGE = `dsh-long-conversation-memory CLI ${PLUGIN_VERSION}
+const USAGE = `dsh-long-memory CLI ${PLUGIN_VERSION}
 
 Usage: node scripts/memory-cli.mjs [options] <command> [args]
 
 Options:
-  --db <file>        SQLite file (default: <DSH_HOME>/long-conversation-memory/memory.sqlite)
+  --db <file>        SQLite file (default: <DSH_HOME>/long-memory/memory.sqlite)
   --session <id>     Session id (default: most recently seen session)
   --json             Print the raw JSON result instead of formatted text
   -h, --help         Show this help
@@ -81,7 +81,7 @@ if (options.command === '' || options.command === '-h' || options.command === '-
 const config = normalizeConfig(DEFAULT_CONFIG)
 const dbFile = options.db !== null ? path.resolve(options.db) : path.join(resolveDataDir(config.dataDir), 'memory.sqlite')
 if (!fs.existsSync(dbFile)) {
-  process.stderr.write(`long-conversation-memory: database not found: ${dbFile}\n`)
+  process.stderr.write(`long-memory: database not found: ${dbFile}\n`)
   process.exit(2)
 }
 
@@ -101,7 +101,7 @@ const diagnostics = new Diagnostics(store, {
 function describeSession(sessionId) {
   const session = store.getSession(sessionId)
   if (session === undefined) {
-    process.stderr.write(`long-conversation-memory: unknown session: ${sessionId}\n`)
+    process.stderr.write(`long-memory: unknown session: ${sessionId}\n`)
     process.exit(2)
   }
   return sessionId
@@ -118,7 +118,7 @@ try {
   switch (options.command) {
     case 'status': {
       if (sessionId === null) {
-        result = { kind: 'success', text: `long-conversation-memory: no sessions yet\n  db: ${dbFile}` }
+        result = { kind: 'success', text: `long-memory: no sessions yet\n  db: ${dbFile}` }
         break
       }
       result = diagnostics.handle('status', { sessionId: describeSession(sessionId) })
@@ -142,7 +142,7 @@ try {
     case 'retract':
     case 'export': {
       if (sessionId === null) {
-        process.stderr.write('long-conversation-memory: no session available; pass --session <id>\n')
+        process.stderr.write('long-memory: no session available; pass --session <id>\n')
         process.exit(2)
       }
       const raw = options.command === 'export' && options.args.includes('--events') ? 'export --events' : [options.command, ...options.args].join(' ')
@@ -151,7 +151,7 @@ try {
     }
     case 'purge': {
       if (sessionId === null || !options.args.includes('--yes')) {
-        process.stderr.write('long-conversation-memory: purge needs --session <id> and --yes\n')
+        process.stderr.write('long-memory: purge needs --session <id> and --yes\n')
         process.exit(2)
       }
       result = diagnostics.handle(`purge ${options.args.filter((arg) => arg !== '--yes').join(' ')}`.trim(), {
@@ -160,7 +160,7 @@ try {
       break
     }
     default: {
-      process.stderr.write(`long-conversation-memory: unknown command "${options.command}"\n${USAGE}`)
+      process.stderr.write(`long-memory: unknown command "${options.command}"\n${USAGE}`)
       process.exit(2)
     }
   }
@@ -170,7 +170,7 @@ try {
   process.stdout.write(options.json && ok ? `${text}\n` : `${text}\n`)
   process.exitCode = ok ? 0 : 1
 } catch (error) {
-  process.stderr.write(`long-conversation-memory: ${error instanceof Error ? error.message : String(error)}\n`)
+  process.stderr.write(`long-memory: ${error instanceof Error ? error.message : String(error)}\n`)
   process.exitCode = 1
 } finally {
   store.close()

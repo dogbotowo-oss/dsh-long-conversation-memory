@@ -11,14 +11,14 @@
  * lazily through the adapter (`ctx.get(...)`), and absent services degrade to
  * "memory without that source" rather than a failed plugin load.
  *
- * @module dsh-long-conversation-memory
+ * @module dsh-long-memory
  */
 
 import { DEFAULT_CONFIG, normalizeConfig } from './config.js'
 import { createRuntime } from './adapter/runtime.js'
 import { PLUGIN_VERSION } from './core/constants.js'
 
-export const name = 'long-conversation-memory'
+export const name = 'long-memory'
 export const version = PLUGIN_VERSION
 export const inject = []
 
@@ -41,7 +41,7 @@ export function apply(ctx, config) {
       runtime.start()
       return () => runtime.dispose()
     },
-    'long-conversation-memory',
+    'long-memory',
   )
 }
 

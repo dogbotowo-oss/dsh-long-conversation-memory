@@ -80,7 +80,7 @@ await checkAsync('PLUGIN_VERSION matches package.json', async () => {
 })
 
 check('package.json plugin manifest is consistent', () => {
-  assert.equal(packageJson.name, 'dsh-long-conversation-memory')
+  assert.equal(packageJson.name, 'dsh-long-memory')
   assert.equal(packageJson.type, 'module')
   assert.equal(packageJson.main, './src/index.js')
   assert.equal(packageJson.dsh?.bundle?.patch, './cordis.patch.yml')
@@ -94,8 +94,8 @@ check('package.json plugin manifest is consistent', () => {
 
 check('cordis patch targets this package', () => {
   const patch = fs.readFileSync(path.join(ROOT, 'cordis.patch.yml'), 'utf8')
-  assert.match(patch, /id:\s*long-conversation-memory/)
-  assert.match(patch, /name:\s*['"]dsh-long-conversation-memory['"]/)
+  assert.match(patch, /id:\s*long-memory/)
+  assert.match(patch, /name:\s*['"]dsh-long-memory['"]/)
 })
 
 // -------------------------------------------------------- public repo hygiene
@@ -195,7 +195,7 @@ function createFakeHost() {
 }
 
 await checkAsync('end-to-end pipeline against a fake host', async () => {
-  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dsh-long-conversation-memory-check-'))
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dsh-long-memory-check-'))
   const dataDir = path.join(tmpDir, 'data')
   const { ctx, listeners, commands, session, messages } = createFakeHost()
 
@@ -249,7 +249,7 @@ await checkAsync('end-to-end pipeline against a fake host', async () => {
   assert.equal(first.messages.length, 2, 'expected claimed message + memory injection')
   const injected = first.messages[1]
   assert.equal(injected.role, 'user')
-  assert.equal(injected.source.kind, 'long-conversation-memory')
+  assert.equal(injected.source.kind, 'long-memory')
   assert.match(injected.content[0].text, /目标/)
   assert.match(injected.content[0].text, /证据|evidence/i)
   // The claimed message of this very step is already visible to the model, so
@@ -268,7 +268,7 @@ await checkAsync('end-to-end pipeline against a fake host', async () => {
   const third = await preStep({ agent, messages: [], turn: 2, step: 1, signal: new AbortController().signal })
   assert.equal(third.messages.length, 1, 'expected re-injection after compaction')
   const reinjected = third.messages[0]
-  assert.equal(reinjected.source.kind, 'long-conversation-memory')
+  assert.equal(reinjected.source.kind, 'long-memory')
   assert.match(reinjected.content[0].text, /79\.87/)
   assert.match(reinjected.content[0].text, /v3 模型/)
   messages.push({ event: null, message: reinjected })
@@ -290,7 +290,7 @@ await checkAsync('end-to-end pipeline against a fake host', async () => {
   emit('compaction/summary', { summary: 'compacted again', from: 5, to: 6 })
   const fourth = await preStep({ agent, messages: [], turn: 3, step: 1, signal: new AbortController().signal })
   const correctedBlock = fourth.messages[fourth.messages.length - 1]
-  assert.equal(correctedBlock.source.kind, 'long-conversation-memory')
+  assert.equal(correctedBlock.source.kind, 'long-memory')
   assert.match(correctedBlock.content[0].text, /81\.20/)
   // The superseded *memory item* must leave the derived index, but the original
   // user message is raw evidence and must still be quoted verbatim.
@@ -302,7 +302,7 @@ await checkAsync('end-to-end pipeline against a fake host', async () => {
   assert.equal(commands.length, 1)
   const status = runtime.diagnostics.handle('status', { sessionId: session.id })
   assert.equal(status.kind, 'success')
-  assert.match(status.text, /long-conversation-memory|记忆/)
+  assert.match(status.text, /long-memory|记忆/)
   const explain = runtime.diagnostics.handle('explain', { sessionId: session.id })
   assert.equal(explain.kind, 'success')
   assert.match(explain.text, /assembly|装配|tokens/i)

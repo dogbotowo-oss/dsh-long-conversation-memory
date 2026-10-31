@@ -45,7 +45,7 @@ async function runTurn(host, session, text, options = {}) {
   host.emit(session, 'turn/start', { turn: options.turn ?? 1 })
   const message = host.emitUser(session, text)
   const decision = await host.preStep(session, { messages: [message], turn: options.turn ?? 1, step: options.step ?? 1 })
-  const injected = decision.messages.find((entry) => entry.source?.kind === 'long-conversation-memory')
+  const injected = decision.messages.find((entry) => entry.source?.kind === 'long-memory')
   return { message, decision, text: injected?.content?.[0]?.text ?? '' }
 }
 
@@ -69,7 +69,7 @@ test('tool output and generated context can never become memory items', async (t
     id: 'gen_1',
     role: 'user',
     content: [{ type: 'text', text: '准确率是 99.99%（这条是插件自己生成的上下文）' }],
-    source: { kind: 'long-conversation-memory', form: 'snapshot', contentHash: 'deadbeef' },
+    source: { kind: 'long-memory', form: 'snapshot', contentHash: 'deadbeef' },
   })
 
   const first = await host.preStep(session, { messages: [userMessage], turn: 1, step: 1 })
@@ -82,13 +82,13 @@ test('tool output and generated context can never become memory items', async (t
   const events = runtime.store.listEvents(sessionId, { limit: 500 })
   const generated = events.filter((event) => /这条是插件自己生成的上下文/.test(event.text ?? ''))
   assert.equal(generated.length, 1, 'generated context is stored for audit completeness')
-  assert.equal(generated[0].source_kind, 'long-conversation-memory')
+  assert.equal(generated[0].source_kind, 'long-memory')
   const evidence = runtime.retriever.retrieveEvidence(sessionId, { query: '99.99' }).evidence
   assert.equal(evidence.length, 1, 'the tool result stays available as raw evidence')
   assert.equal(evidence[0].eventType, 'tool/result')
   assert.notEqual(evidence[0].eventType, 'user/message')
 
-  const injectedText = first.messages.find((entry) => entry.source?.kind === 'long-conversation-memory')?.content?.[0]?.text ?? ''
+  const injectedText = first.messages.find((entry) => entry.source?.kind === 'long-memory')?.content?.[0]?.text ?? ''
   assert.doesNotMatch(injectedText, /\[mem [^\]]*\][^\n]*99\.99/, 'tool numbers are not promoted into the derived index')
   assert.match(injectedText, /证据|evidence/i, 'the block labels itself as evidence')
 })

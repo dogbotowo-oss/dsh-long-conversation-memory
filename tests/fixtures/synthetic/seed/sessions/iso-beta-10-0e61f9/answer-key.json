@@ -1,11 +1,11 @@
 {
-  "format": "dsh-long-conversation-memory-eval-answer-key",
+  "format": "dsh-long-memory-eval-answer-key",
   "version": 1,
   "scenario": "multi-session",
   "group": "isolation",
-  "sessionId": "iso-beta-10-f80c5a",
+  "sessionId": "iso-beta-10-0e61f9",
   "turns": 10,
-  "seed": "dsh-long-conversation-memory-eval-v1",
+  "seed": "dsh-long-memory-eval-v1",
   "skill": {
     "name": "synthetic-eval-runbook",
     "rules": [

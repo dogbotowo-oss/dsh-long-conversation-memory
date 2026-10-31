@@ -1,4 +1,4 @@
 - insert:
-    - id: long-conversation-memory
-      name: 'dsh-long-conversation-memory'
+    - id: long-memory
+      name: 'dsh-long-memory'
       config: {}

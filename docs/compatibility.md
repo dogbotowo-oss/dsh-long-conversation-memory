@@ -1,6 +1,6 @@
 # Compatibility
 
-This page records what `dsh-long-conversation-memory` expects from the DSH host, how those
+This page records what `dsh-long-memory` expects from the DSH host, how those
 expectations were verified, how the plugin coordinates with context-compaction
 plugins, and what is deliberately left unverified. It separates "verified in the
 shipped runtime" from "assumed to keep working".
@@ -17,6 +17,20 @@ shipped runtime" from "assumed to keep working".
 
 Only 0.2.1-rc.3 is verified. DSH is young and its plugin surface is still
 moving; treat any other version as unverified until the checks below pass.
+
+## Renamed release
+
+An earlier release (2026-10-29) was published as `dsh-long-conversation-memory`.
+It is now `dsh-long-memory`: the npm package name, the Cordis plugin id, the
+default state directory and the assembly source kind all use the new name. The
+data format did not change.
+
+An upgrade must not orphan the memory database, so `resolveDataDir()` keeps using
+an existing `<DSH_HOME>/long-conversation-memory` directory when the new
+`<DSH_HOME>/long-memory` directory does not exist yet. Set `dataDir` in the
+plugin config (or move the directory) to force a different location. Rows
+written by the old release keep their old `source_kind` values and are read
+as-is; new generated context uses `long-memory`.
 
 ## Why the interfaces were verified from shipped source
 
@@ -66,7 +80,7 @@ Cordis context (`ctx.on`, `ctx.get`, `ctx.commands.register`). The core modules
 The plugin is a plain Cordis plugin:
 
 ```js
-export const name = 'long-conversation-memory'
+export const name = 'long-memory'
 export const version = '0.1.0'
 export const inject = []            // loads on any profile
 export function apply(ctx, config) { /* normalize, create runtime, ctx.effect(...) */ }
@@ -141,7 +155,7 @@ host packages (see above). `host.js` reproduces the verified behaviour with
   id: randomUUID(),
   role: 'user',
   content: [{ type: 'text', text }],
-  source: { kind: 'long-conversation-memory', form: 'snapshot', contentHash, sessionId, turn?, step? },
+  source: { kind: 'long-memory', form: 'snapshot', contentHash, sessionId, turn?, step? },
 }
 ```
 
@@ -278,7 +292,7 @@ The plugin keeps its own directory under the DSH home:
 
 1. `dataDir` config value, if set (with `~` and simple `$VAR` expansion);
 2. otherwise `$DSH_HOME`, or `~/.dsh` when the variable is unset, plus
-   `long-conversation-memory/`;
+   `long-memory/`;
 3. the database file is `dbFile` (default `memory.sqlite`) inside that
    directory.
 

@@ -2,11 +2,11 @@
  * Shared constants. Keeping them in one place makes the DSH adapter layer the
  * only file that needs to change when the host event vocabulary moves.
  *
- * @module dsh-long-conversation-memory/core/constants
+ * @module dsh-long-memory/core/constants
  */
 
 /** Message `source.kind` used for every memory context message we inject. */
-export const MEMORY_SOURCE_KIND = 'long-conversation-memory'
+export const MEMORY_SOURCE_KIND = 'long-memory'
 
 /** Plugin version reported by diagnostics; `scripts/check.mjs` keeps it in sync with package.json. */
 export const PLUGIN_VERSION = '0.1.0'

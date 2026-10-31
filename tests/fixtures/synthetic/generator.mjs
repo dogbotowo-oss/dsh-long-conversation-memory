@@ -23,9 +23,9 @@ import {
 /** Version of the fixture format (bump when the shape changes). */
 export const GENERATOR_VERSION = '1.0.0'
 /** Manifest discriminator. */
-export const MANIFEST_FORMAT = 'dsh-long-conversation-memory-eval-fixtures'
+export const MANIFEST_FORMAT = 'dsh-long-memory-eval-fixtures'
 /** Default deterministic seed for all fixture data. */
-export const DEFAULT_SEED = 'dsh-long-conversation-memory-eval-v1'
+export const DEFAULT_SEED = 'dsh-long-memory-eval-v1'
 /** Default profile used by `node scripts/eval.mjs` and `npm run eval`. */
 export const DEFAULT_PROFILE = 'smoke'
 

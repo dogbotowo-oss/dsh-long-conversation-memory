@@ -11,7 +11,7 @@
  * - every write is idempotent per session event sequence number, so retries,
  *   restores and repeated ingest cannot duplicate memories.
  *
- * @module dsh-long-conversation-memory/memory/store
+ * @module dsh-long-memory/memory/store
  */
 
 import {
@@ -1430,7 +1430,7 @@ export class MemoryStore {
       )
       .filter((row) => itemIds.has(String(row.memory_id)))
     return {
-      format: 'dsh-long-conversation-memory-export',
+      format: 'dsh-long-memory-export',
       version: 1,
       exportedAt: this.now(),
       session: session ?? null,

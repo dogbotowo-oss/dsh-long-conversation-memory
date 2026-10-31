@@ -1,6 +1,6 @@
 # Evaluation protocol
 
-This document defines how `dsh-long-conversation-memory` is measured. The protocol is
+This document defines how `dsh-long-memory` is measured. The protocol is
 deliberately conservative: it separates **storage correctness**, **retrieval**,
 **assembly**, **token cost** and **latency**, and never merges them into a single
 headline score. A plugin that scores well on one axis may score poorly on
@@ -153,7 +153,7 @@ human-readable table. The JSON report has this shape:
 
 ```jsonc
 {
-  "format": "dsh-long-conversation-memory-eval-report",
+  "format": "dsh-long-memory-eval-report",
   "version": 1,
   "generatedAt": "…",
   "profile": "smoke|standard|full|seed",
@@ -199,13 +199,14 @@ never mix numbers from a different commit, seed or profile.
 
 Run metadata (both tables):
 
-- plugin version 0.1.0, code commit `76c215c` (the project-rename commit these numbers were measured on);
+- plugin version 0.1.0, code commit `__CODE_COMMIT__` (the `dsh-long-memory`
+  unification commit these numbers were measured on);
 - DSH target: 0.2.1-rc.3 (interfaces verified; the harness is host-independent);
 - OS: Windows 10/11 x64, Node.js v24.19.0 (`node:sqlite` with FTS5);
-- answerer: `deterministic` (no model calls), seed `dsh-long-conversation-memory-eval-v1`;
-- date: 2026-10-29; wall clock: standard 2.2 s, full 4.7 s;
-- reports: `eval-results/2026-10-29T11-33-36-107Z-standard.json`,
-  `eval-results/2026-10-29T11-33-52-989Z-full.json` (gitignored; regenerate with
+- answerer: `deterministic` (no model calls), seed `dsh-long-memory-eval-v1`;
+- date: 2026-10-31; wall clock: standard 2.2 s, full 5.1 s;
+- reports: `eval-results/2026-10-31T04-31-44-709Z-standard.json`,
+  `eval-results/2026-10-31T04-31-25-881Z-full.json` (gitignored; regenerate with
   the commands above).
 
 ### `standard` profile — 5 sessions, 860 turns, 52 questions
@@ -216,8 +217,8 @@ Run metadata (both tables):
 | `retrievalRecall` | n/a | n/a | 84.2% (32/38) |
 | `retrievalRank1` | n/a | n/a | 76.9% (20/26) |
 | `assemblyCoverage` | 45.9% | 45.9% | 86.5% |
-| `extraTokensEstimate` (mean) | 352.0 | 538.6 | 1154.4 |
-| `latencyMs` mean / p95 | 0.0 / 0.0 | 0.0 / 0.0 | 8.1 / 20.3 |
+| `extraTokensEstimate` (mean) | 352.0 | 542.5 | 1151.6 |
+| `latencyMs` mean / p95 | 0.0 / 0.0 | 0.0 / 0.0 | 8.3 / 18.8 |
 | `ruleCoverage` | 100.0% | 100.0% | 100.0% |
 | `taskStateAccuracy` | n/a | n/a | 100.0% (20/20) |
 | `guardPassRate` | 100.0% | 100.0% | 100.0% |
@@ -231,8 +232,8 @@ Run metadata (both tables):
 | `retrievalRecall` | n/a | n/a | 84.0% (42/50) |
 | `retrievalRank1` | n/a | n/a | 76.5% (26/34) |
 | `assemblyCoverage` | 46.0% | 46.0% | 86.2% |
-| `extraTokensEstimate` (mean) | 352.0 | 540.7 | 1157.6 |
-| `latencyMs` mean / p95 | 0.0 / 0.0 | 0.0 / 0.0 | 13.2 / 40.2 |
+| `extraTokensEstimate` (mean) | 352.0 | 546.7 | 1154.8 |
+| `latencyMs` mean / p95 | 0.0 / 0.0 | 0.0 / 0.0 | 14.1 / 37.6 |
 | `ruleCoverage` | 100.0% | 100.0% | 100.0% |
 | `taskStateAccuracy` | n/a | n/a | 100.0% (24/24) |
 | `guardPassRate` | 100.0% | 100.0% | 100.0% |

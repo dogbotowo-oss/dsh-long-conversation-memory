@@ -11,7 +11,7 @@
 import { TOKEN_PROFILE, aggregateQuestionMetrics } from './metrics.mjs'
 
 /** Stable report format id. */
-export const REPORT_FORMAT = 'dsh-long-conversation-memory-eval-report'
+export const REPORT_FORMAT = 'dsh-long-memory-eval-report'
 
 /** Report schema version. */
 export const REPORT_VERSION = 1
@@ -506,7 +506,7 @@ export function formatHumanReport(report) {
   const baselineIds = report.baselines.map((baseline) => baseline.id)
   const labelFor = (id) => report.baselines.find((baseline) => baseline.id === id)?.label ?? id
 
-  lines.push('DSH long-conversation-memory evaluation')
+  lines.push('DSH long-memory evaluation')
   lines.push(`profile: ${report.profile}    seed: ${report.seed}    answerer: ${report.answerer?.kind ?? 'deterministic'}`)
   lines.push(`generatedAt: ${report.generatedAt}`)
   const totals = report.fixtures.totals

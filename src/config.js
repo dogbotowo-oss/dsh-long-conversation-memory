@@ -6,11 +6,11 @@
  * test environment, so configuration validation happens here in plain JS and
  * the schemastery schema is built only when the host package can be imported.
  *
- * @module dsh-long-conversation-memory/config
+ * @module dsh-long-memory/config
  */
 
 /** Stable plugin identity used in patch files, logs and diagnostics. */
-export const PLUGIN_ID = 'long-conversation-memory'
+export const PLUGIN_ID = 'long-memory'
 
 /** Default soft budget for the injected memory context, in tokens (estimate). */
 export const DEFAULT_SOFT_BUDGET_TOKENS = 3000
@@ -18,7 +18,7 @@ export const DEFAULT_SOFT_BUDGET_TOKENS = 3000
 /**
  * @typedef {object} SessionMemoryConfig
  * @property {boolean} enabled master switch (default true)
- * @property {string} dataDir absolute directory for the memory database, `''` = `<DSH_HOME>/long-conversation-memory`
+ * @property {string} dataDir absolute directory for the memory database, `''` = `<DSH_HOME>/long-memory`
  * @property {string} dbFile database file name inside dataDir
  * @property {boolean} includeSubagents capture subagent sessions too (default false)
  * @property {object} assembly context assembly budget and limits

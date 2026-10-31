@@ -18,6 +18,7 @@ import {
   correctionTargetsCandidate,
   detectCorrections,
   detectTaskClears,
+  disambiguateCorrectionTargets,
   extractAssistantProposals,
   extractTaskPatch,
   extractUserMemories,
@@ -97,6 +98,27 @@ test('correctionTargetsCandidate matches old values and false positives', () => 
   assert.equal(correctionTargetsCandidate({ numbers: [{ raw: '55%' }], content: '无关' }, correction), false)
   // Falls back to extracting numbers from the candidate content.
   assert.equal(correctionTargetsCandidate({ content: '准确率是 79.87% 的记录' }, correction), true)
+})
+
+test('disambiguateCorrectionTargets uses wording when a number is shared', () => {
+  const correction = detectCorrections(
+    '修正 p 值：不是 0.040，是 0.034，统计条件是 95% CI、5 次运行、paired bootstrap，以 0.034 为准。',
+  )[0]
+  const pValue = {
+    id: 'mem_p',
+    content: '显著性检验：mimir-13b 对比 mimir-70b 在 test-clean 上的 p 值是 0.040（95% CI，5 次运行，paired bootstrap）。',
+  }
+  const ece = {
+    id: 'mem_ece',
+    content: '校准误差更正：不是 0.048，是 0.040，口径是 temperature scaling、dev-calib、n=2000，旧值只作历史。',
+  }
+  // Both facts carry 0.040, but only the p-value fact shares the correction wording.
+  assert.deepEqual(disambiguateCorrectionTargets([pValue, ece], [correction]), [pValue])
+  // A single match is unambiguous and passes straight through.
+  assert.deepEqual(disambiguateCorrectionTargets([pValue], [correction]), [pValue])
+  // Two unrelated facts sharing a number: refuse to guess rather than corrupt.
+  const unrelated = { id: 'mem_other', content: '阈值定为 0.040。' }
+  assert.deepEqual(disambiguateCorrectionTargets([unrelated, { ...unrelated, id: 'mem_other2' }], [correction]), [])
 })
 
 test('qualificationClauses captures scope and number units', () => {
@@ -302,7 +324,7 @@ test('recordAssistantProposals can be disabled by config', () => {
 test('only genuine user messages are extracted', () => {
   const { store, sessionId, extractor } = createExtractor()
   store.recordEvents([
-    eventRecord(sessionId, 1, 'user/message', '注入的记忆内容 42%', { sourceKind: 'long-conversation-memory' }),
+    eventRecord(sessionId, 1, 'user/message', '注入的记忆内容 42%', { sourceKind: 'long-memory' }),
     eventRecord(sessionId, 2, 'user/message', '运行时上下文 42%', { sourceKind: 'runtime-context' }),
     eventRecord(sessionId, 3, 'user/message', '决定：采用 v3 模型。', { sourceKind: 'user' }),
     eventRecord(sessionId, 4, 'tool/result', '准确率 81.20% 的结果行'),

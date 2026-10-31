@@ -49,7 +49,7 @@ async function runTurn(host, session, text, options = {}) {
   const message = host.emitUser(session, text)
   const decision = await host.preStep(session, { messages: [message], turn: options.turn ?? 1, step: options.step ?? 1 })
   assert.equal(decision.kind, 'enter')
-  const injected = decision.messages.find((entry) => entry.source?.kind === 'long-conversation-memory')
+  const injected = decision.messages.find((entry) => entry.source?.kind === 'long-memory')
   return { message, decision, injected, text: injected?.content?.[0]?.text ?? '' }
 }
 

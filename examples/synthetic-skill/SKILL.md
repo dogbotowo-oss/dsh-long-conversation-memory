@@ -1,12 +1,12 @@
 ---
 name: synthetic-report-skill
-description: "Synthetic, self-contained example skill for dsh-long-conversation-memory. It exercises the four rule categories (stable rule, data convention, current state, operational lesson) plus an abbreviation ban whose scope is deliberately narrow. It describes no real project, paper, dataset or person."
+description: "Synthetic, self-contained example skill for dsh-long-memory. It exercises the four rule categories (stable rule, data convention, current state, operational lesson) plus an abbreviation ban whose scope is deliberately narrow. It describes no real project, paper, dataset or person."
 when_to_use: Use when trying the skill-rule ingestion examples in this repository.
 ---
 
 # synthetic-report-skill
 
-A deliberately small skill that shows how `dsh-long-conversation-memory` indexes a `SKILL.md`
+A deliberately small skill that shows how `dsh-long-memory` indexes a `SKILL.md`
 into categorised rules. Every rule below is fictional; the file exists so examples
 and tests can exercise categorisation, dynamic state handling and scoped rules
 without depending on a real project skill.

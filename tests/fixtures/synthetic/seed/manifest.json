@@ -1,9 +1,9 @@
 {
-  "format": "dsh-long-conversation-memory-eval-fixtures",
+  "format": "dsh-long-memory-eval-fixtures",
   "version": 1,
   "generatorVersion": "1.0.0",
   "profile": "seed",
-  "seed": "dsh-long-conversation-memory-eval-v1",
+  "seed": "dsh-long-memory-eval-v1",
   "logicalStart": "2026-01-05T08:00:00.000Z",
   "variant": "synthetic",
   "skill": {
@@ -24,12 +24,12 @@
     {
       "scenario": "long-haul",
       "group": null,
-      "sessionId": "lh-20-455d9f",
+      "sessionId": "lh-20-d5ba76",
       "turns": 20,
-      "directory": "sessions/lh-20-455d9f",
+      "directory": "sessions/lh-20-d5ba76",
       "files": {
-        "session": "sessions/lh-20-455d9f/session.json",
-        "answerKey": "sessions/lh-20-455d9f/answer-key.json"
+        "session": "sessions/lh-20-d5ba76/session.json",
+        "answerKey": "sessions/lh-20-d5ba76/answer-key.json"
       },
       "eventEntries": 178,
       "uniqueEvents": 176,
@@ -41,12 +41,12 @@
     {
       "scenario": "multi-session",
       "group": "isolation",
-      "sessionId": "iso-alpha-10-20eada",
+      "sessionId": "iso-alpha-10-68e13b",
       "turns": 10,
-      "directory": "sessions/iso-alpha-10-20eada",
+      "directory": "sessions/iso-alpha-10-68e13b",
       "files": {
-        "session": "sessions/iso-alpha-10-20eada/session.json",
-        "answerKey": "sessions/iso-alpha-10-20eada/answer-key.json"
+        "session": "sessions/iso-alpha-10-68e13b/session.json",
+        "answerKey": "sessions/iso-alpha-10-68e13b/answer-key.json"
       },
       "eventEntries": 88,
       "uniqueEvents": 87,
@@ -58,12 +58,12 @@
     {
       "scenario": "multi-session",
       "group": "isolation",
-      "sessionId": "iso-beta-10-f80c5a",
+      "sessionId": "iso-beta-10-0e61f9",
       "turns": 10,
-      "directory": "sessions/iso-beta-10-f80c5a",
+      "directory": "sessions/iso-beta-10-0e61f9",
       "files": {
-        "session": "sessions/iso-beta-10-f80c5a/session.json",
-        "answerKey": "sessions/iso-beta-10-f80c5a/answer-key.json"
+        "session": "sessions/iso-beta-10-0e61f9/session.json",
+        "answerKey": "sessions/iso-beta-10-0e61f9/answer-key.json"
       },
       "eventEntries": 88,
       "uniqueEvents": 87,
@@ -78,8 +78,8 @@
       "group": "isolation",
       "scenario": "multi-session",
       "sessions": [
-        "iso-alpha-10-20eada",
-        "iso-beta-10-f80c5a"
+        "iso-alpha-10-68e13b",
+        "iso-beta-10-0e61f9"
       ],
       "interleave": true,
       "turns": 10
@@ -95,8 +95,8 @@
     "questions": 13
   },
   "formats": {
-    "session": "dsh-long-conversation-memory-eval-session",
-    "answerKey": "dsh-long-conversation-memory-eval-answer-key"
+    "session": "dsh-long-memory-eval-session",
+    "answerKey": "dsh-long-memory-eval-answer-key"
   },
   "notes": [
     "Generated data is deterministic for a given (profile, seed, turns).",

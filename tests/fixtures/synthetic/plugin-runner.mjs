@@ -420,7 +420,7 @@ export async function runMemoryBaseline({ repoRoot, fixture, options = {} }) {
     content: fixture.skillContent,
   }
 
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dsh-long-conversation-memory-eval-'))
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dsh-long-memory-eval-'))
   const dbPath = path.join(tempDir, 'memory.sqlite')
   const harness = new PluginHarness({ modules, config, dbPath, skill })
   const startedAt = performance.now()

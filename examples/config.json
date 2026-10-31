@@ -1,9 +1,9 @@
 {
   "$comment": [
-    "Example dsh-long-conversation-memory plugin configuration.",
+    "Example dsh-long-memory plugin configuration.",
     "Pass this object as the plugin config in your DSH profile (see README).",
     "Every key is optional; omitted keys fall back to the defaults in src/config.js.",
-    "The empty dataDir means: use <DSH_HOME>/long-conversation-memory/."
+    "The empty dataDir means: use <DSH_HOME>/long-memory/."
   ],
   "enabled": true,
   "dataDir": "",

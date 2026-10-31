@@ -12,7 +12,7 @@
  * - numbers are stored together with their unit and qualifying conditions;
  * - extraction is idempotent per session event sequence number.
  *
- * @module dsh-long-conversation-memory/memory/extraction
+ * @module dsh-long-memory/memory/extraction
  */
 
 import { extractNumbers, normalizeText, nowIso, oneLine, tokenize } from '../core/util.js'
@@ -526,9 +526,72 @@ export function substantiveNumbers(text) {
   return out
 }
 
+/** CJK runs of at least two characters (bigram source). */
+const CJK_TERM_RUN_RE = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]{2,}/gu
+/** Latin words long enough to name a metric ("wer", "ece", "latency", "bootstrap"). */
+const LATIN_TERM_RE = /[a-z][a-z0-9_-]{2,}/gi
+/** Latin words too common to prove two claims are about the same measurement. */
+const GENERIC_LATIN_TERMS = new Set([
+  'the', 'and', 'for', 'with', 'from', 'that', 'this', 'not', 'are', 'was', 'were',
+  'has', 'have', 'its', 'their', 'run', 'runs', 'value', 'values', 'only', 'than',
+])
+
+/**
+ * Distinctive terms of a sentence: Latin words plus CJK bigrams. Used to tell
+ * two facts that share the same number apart ("p 值是 0.040" vs "ECE 是 0.040")
+ * when a correction names that shared number as its old value.
+ *
+ * @param {string} text
+ * @returns {Set<string>}
+ */
+export function correctionTerms(text) {
+  const value = String(text ?? '')
+  /** @type {Set<string>} */
+  const terms = new Set()
+  for (const match of value.matchAll(LATIN_TERM_RE)) {
+    const word = match[0].toLowerCase()
+    if (!GENERIC_LATIN_TERMS.has(word)) terms.add(word)
+  }
+  for (const match of value.matchAll(CJK_TERM_RUN_RE)) {
+    const run = match[0]
+    for (let index = 0; index + 2 <= run.length; index += 1) {
+      terms.add(run.slice(index, index + 2))
+    }
+  }
+  return terms
+}
+
+/**
+ * When the correction names an old value shared by several active facts, keep
+ * only the facts whose wording overlaps the correction sentence. Refusing to
+ * pick (returning `[]`) is deliberate: superseding the wrong fact corrupts the
+ * derived index, while leaving the old value active is visible and fixable.
+ *
+ * @param {{ id: string, content: string }[]} items
+ * @param {{ sentence?: string }[]} corrections
+ * @returns {{ id: string, content: string }[]}
+ */
+export function disambiguateCorrectionTargets(items, corrections) {
+  if (items.length <= 1) return items
+  /** @type {Set<string>} */
+  const terms = new Set()
+  for (const correction of corrections) {
+    for (const term of correctionTerms(correction.sentence ?? '')) terms.add(term)
+  }
+  if (terms.size === 0) return []
+  const scored = items.map((item) => {
+    const own = correctionTerms(item.content)
+    let score = 0
+    for (const term of terms) if (own.has(term)) score += 1
+    return { item, score }
+  })
+  const max = Math.max(...scored.map((entry) => entry.score))
+  if (max < 1) return []
+  return scored.filter((entry) => entry.score === max).map((entry) => entry.item)
+}
+
 /**
  * Does `candidate` look like the previous version of the claim corrected by
-/**
  * `correction`? We only supersede when the correction sentence names one of the
  * candidate's numbers/values; source and scope are compared by the caller.
  *
@@ -622,7 +685,7 @@ export class SessionExtractor {
             const message = error instanceof Error ? error.message : String(error)
             this.store.markPendingExtraction(sessionId, Number(event.seq), message)
             errors.push({ seq: Number(event.seq), message })
-            this.logger?.warn?.(`long-conversation-memory: extraction failed at seq ${event.seq}: ${message}`)
+            this.logger?.warn?.(`long-memory: extraction failed at seq ${event.seq}: ${message}`)
           }
           processed += 1
           lastSeq = Math.max(lastSeq, Number(event.seq))
@@ -679,6 +742,8 @@ export class SessionExtractor {
       const supersedes = []
       if (candidate.extractor === 'correction') {
         const hits = this.store.searchMemory({ sessionId, query: candidate.content, limit: 20, statuses: ['active'] })
+        /** @type {{ id: string, content: string }[]} */
+        const matched = []
         for (const hit of hits) {
           if (hit.item.evidenceType !== 'user_explicit') continue
           if (hit.item.extractor === 'proposal') continue
@@ -687,9 +752,15 @@ export class SessionExtractor {
             // `correctionTargetsCandidate`; it also refuses to supersede an
             // item that already carries the corrected value.
             if (!correctionTargetsCandidate({ numbers: hit.item.numbers, content: hit.item.content }, correction)) continue
-            supersedes.push(hit.item.id)
+            matched.push({ id: hit.item.id, content: hit.item.content })
             break
           }
+        }
+        // A number can be shared across metrics (p value 0.040 vs ECE 0.040).
+        // When several active facts match, wording overlap decides; no overlap
+        // means we refuse to guess.
+        for (const item of disambiguateCorrectionTargets(matched, candidate.corrections ?? [])) {
+          supersedes.push(item.id)
         }
       }
       const result = this.store.insertMemoryItem(sessionId, {

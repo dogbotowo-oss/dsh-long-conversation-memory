@@ -26,9 +26,10 @@
  * - Everything registered through `ctx.on` / `ctx.commands.register` is
  *   disposed by cordis with the plugin fiber; helpers here return the disposer.
  *
- * @module dsh-long-conversation-memory/adapter/host
+ * @module dsh-long-memory/adapter/host
  */
 
+import { existsSync } from 'node:fs'
 import { randomUUID } from 'node:crypto'
 import { homedir } from 'node:os'
 import path from 'node:path'
@@ -37,7 +38,9 @@ import { MEMORY_SOURCE_FORM, MEMORY_SOURCE_KIND } from '../core/constants.js'
 import { contentBlocksToText, isPlainObject } from '../core/util.js'
 
 export const DSH_HOME_ENV = 'DSH_HOME'
-export const PLUGIN_STATE_DIR_NAME = 'long-conversation-memory'
+export const PLUGIN_STATE_DIR_NAME = 'long-memory'
+/** Directories used by earlier releases of this plugin, newest first. */
+export const LEGACY_STATE_DIR_NAMES = ['long-conversation-memory']
 
 /**
  * Resolve the plugin's local data directory.
@@ -46,6 +49,11 @@ export const PLUGIN_STATE_DIR_NAME = 'long-conversation-memory'
  * build): explicit config value -> `$DSH_HOME` -> `~/.dsh`. The plugin keeps its
  * own directory inside DSH home by default; it never writes into the host's
  * session-persistence database.
+ *
+ * If the plugin was installed under an earlier name and its state directory
+ * already exists, that directory keeps being used so an upgrade does not orphan
+ * the memory database. Move the directory manually (or set `dataDir`) to change
+ * that.
  *
  * @param {string | null | undefined} configured
  * @param {NodeJS.ProcessEnv} [env]
@@ -56,7 +64,12 @@ export function resolveDataDir(configured, env = process.env) {
     return path.resolve(expandHomePath(configured.trim(), env))
   }
   const home = resolveDshHome(undefined, env)
-  return path.join(home, PLUGIN_STATE_DIR_NAME)
+  const current = path.join(home, PLUGIN_STATE_DIR_NAME)
+  for (const legacyName of LEGACY_STATE_DIR_NAMES) {
+    const legacy = path.join(home, legacyName)
+    if (!existsSync(current) && existsSync(legacy)) return legacy
+  }
+  return current
 }
 
 /**

@@ -1,10 +1,10 @@
-# dsh-long-conversation-memory
+# dsh-long-memory
 
 Long-conversation memory for [DeepSeek Harness](https://github.com/deepseek-ai) (DSH).
 
 ## Summary
 
-`dsh-long-conversation-memory` gives a DSH session a durable, evidence-first
+`dsh-long-memory` gives a DSH session a durable, evidence-first
 memory across 100–1000+ turns: it records committed conversation events,
 extracts facts, decisions, corrections and the current task state with
 deterministic rules, indexes enabled skills as versioned rules, and injects a
@@ -114,7 +114,12 @@ dsh plugin --profile <profile> add <path-to-plugin>
 For example, pass the path where this repository is checked out as
 `<path-to-plugin>`. The package ships a `cordis.patch.yml` bundle patch and a
 `dsh.bundle.patch` entry in `package.json`, so adding the package is enough —
-there is no separate build step.
+there is no separate build step. The same package can be installed straight
+from GitHub:
+
+```sh
+dsh plugin --profile <profile> add github:dogbotowo-oss/dsh-long-memory
+```
 
 After installing, open a session and run:
 
@@ -173,7 +178,7 @@ Key groups:
 
 | Group | Purpose |
 | --- | --- |
-| `enabled`, `dataDir`, `dbFile` | Master switch and database location. Empty `dataDir` means `<DSH_HOME>/long-conversation-memory/`. |
+| `enabled`, `dataDir`, `dbFile` | Master switch and database location. Empty `dataDir` means `<DSH_HOME>/long-memory/`. |
 | `assembly` | Injected-message budget (`softBudgetTokens`), section limits and re-injection policy. `evidenceTypes` decides which raw event types may be quoted inline; the default `["user/message"]` keeps tool output (untrusted, possibly injected) searchable but not pasted into the request. |
 | `extraction` | Deterministic extraction switches; `recordAssistantProposals` controls whether assistant proposals are stored. |
 | `retrieval` | Candidate limit and ranking boosts; `minScore` filters weak hits. |
@@ -210,7 +215,7 @@ policy the plugin detected and warns when compatibility could not be confirmed.
 
 ## Data and storage
 
-- One SQLite file per DSH home: `<DSH_HOME>/long-conversation-memory/memory.sqlite`
+- One SQLite file per DSH home: `<DSH_HOME>/long-memory/memory.sqlite`
   (override with `dataDir`/`dbFile`). Opened through `node:sqlite` with WAL mode.
 - Tables: `events`, `memory_items`, `memory_events`, `task_state`, `checkpoints`,
   `skill_versions`, `skill_files`, `rules`, `rule_overrides`, `assembly_logs`,
@@ -249,8 +254,8 @@ These are enforced in the store (`src/memory/store.js`) and described in
 The offline harness (`node scripts/eval.mjs --profile full`) compares three
 baselines on seeded synthetic sessions with an independent answer key:
 `skill-only`, `skill + rolling summary`, and this plugin. Metrics are reported
-separately, never merged into one score. Measured on 2026-10-29, Node v24.19.0,
-seed `dsh-long-conversation-memory-eval-v1` (6 sessions, 100/200/500/1000 turns, 68
+separately, never merged into one score. Measured on 2026-10-31, Node v24.19.0,
+seed `dsh-long-memory-eval-v1` (6 sessions, 100/200/500/1000 turns, 68
 questions):
 
 | Metric | Skill only | Skill + rolling summary | This plugin |
@@ -258,8 +263,8 @@ questions):
 | Storage correctness (answer-key assertions) | n/a | n/a | **100.0%** (338/338) |
 | Retrieval recall / rank-1 | n/a | n/a | **84.0% / 76.5%** |
 | Assembly coverage | 46.0% | 46.0% | **86.2%** |
-| Extra tokens per query (estimate) | 352.0 | 540.7 | 1157.6 |
-| Latency mean / p95 | 0.0 / 0.0 ms | 0.0 / 0.0 ms | 13.2 / 40.2 ms |
+| Extra tokens per query (estimate) | 352.0 | 546.7 | 1154.8 |
+| Latency mean / p95 | 0.0 / 0.0 ms | 0.0 / 0.0 ms | 14.1 / 37.6 ms |
 | Rule coverage / task-state accuracy | 100.0% / n/a | 100.0% / n/a | 100.0% / 100.0% |
 | Guard pass rate (forbidden/required terms) | 100.0% | 100.0% | 100.0% |
 | Hard invariants | n/a | n/a | **9/9 pass** |

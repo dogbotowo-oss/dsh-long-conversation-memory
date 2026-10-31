@@ -1,11 +1,11 @@
 {
-  "format": "dsh-long-conversation-memory-eval-session",
+  "format": "dsh-long-memory-eval-session",
   "version": 1,
   "scenario": "long-haul",
   "variant": "mini",
-  "sessionId": "lh-20-455d9f",
+  "sessionId": "lh-20-d5ba76",
   "turns": 20,
-  "seed": "dsh-long-conversation-memory-eval-v1",
+  "seed": "dsh-long-memory-eval-v1",
   "cwd": "/synthetic/workspace/mimir-eval",
   "project": "mimir-eval",
   "dshVersion": "synthetic-0.1",
@@ -35,7 +35,7 @@
         "content": [
           {
             "type": "text",
-            "text": "把跑完的日志归档一下。"
+            "text": "把评测脚本的参数贴一下。"
           }
         ]
       }
@@ -69,7 +69,7 @@
           "content": [
             {
               "type": "text",
-              "text": "这个参数没变，结果应该稳定。"
+              "text": "好的，下一步继续。"
             }
           ]
         }
@@ -117,7 +117,7 @@
         "content": [
           {
             "type": "text",
-            "text": "mimir-13b 在 beam=5、test-clean 上的 BLEU 是 30.89 分（95% CI ±0.18，n=1200 bootstrap）。这个数字按 runbook 必须带单位和统计条件。"
+            "text": "mimir-13b 在 beam=5、test-clean 上的 BLEU 是 31.84 分（95% CI ±0.18，n=1200 bootstrap）。这个数字按 runbook 必须带单位和统计条件。"
           }
         ]
       }
@@ -400,7 +400,7 @@
         "content": [
           {
             "type": "text",
-            "text": "mimir-7b 在 seq_len=2048、A100 80GB、batch=8 下的 p95 延迟是 148.3 毫秒（5 次运行）。"
+            "text": "mimir-7b 在 seq_len=2048、A100 80GB、batch=8 下的 p95 延迟是 151.9 毫秒（5 次运行）。"
           }
         ]
       }
@@ -815,7 +815,7 @@
         "content": [
           {
             "type": "text",
-            "text": "把跑完的日志归档一下。"
+            "text": "日志里那段 warning 不用管，继续。"
           }
         ]
       }
@@ -849,7 +849,7 @@
           "content": [
             {
               "type": "text",
-              "text": "输出目录已确认。"
+              "text": "这个参数没变，结果应该稳定。"
             }
           ]
         }
@@ -892,7 +892,7 @@
           "content": [
             {
               "type": "text",
-              "text": "# Compaction summary (turn 10)\n- 最近确认的数值：WER: 79.87 %；WER: 79.78 %；p95 latency: 148.3 毫秒\n- 更早的细节已经从当前上下文移除；如需引用必须回查原始记录，不要凭记忆补数字。"
+              "text": "# Compaction summary (turn 10)\n- 最近确认的数值：WER: 79.87 %；WER: 79.78 %；p95 latency: 151.9 毫秒\n- 更早的细节已经从当前上下文移除；如需引用必须回查原始记录，不要凭记忆补数字。"
             }
           ]
         }
@@ -932,11 +932,11 @@
         "content": [
           {
             "type": "text",
-            "text": "[long-conversation-memory snapshot epoch=10] 最近摘要：mimir-13b BLEU=30.89 分（旧值，可能已被更正）。其余细节略。"
+            "text": "[long-memory snapshot epoch=10] 最近摘要：mimir-13b BLEU=31.84 分（旧值，可能已被更正）。其余细节略。"
           }
         ],
         "source": {
-          "kind": "long-conversation-memory"
+          "kind": "long-memory"
         }
       }
     },
@@ -1330,7 +1330,7 @@
         "content": [
           {
             "type": "text",
-            "text": "更正：刚才的 BLEU 不是 30.89 分，是 31.36 分，条件仍是 beam=5、test-clean、95% CI ±0.18、n=1200 bootstrap，以 31.36 分为准。"
+            "text": "更正：刚才的 BLEU 不是 31.84 分，是 32.22 分，条件仍是 beam=5、test-clean、95% CI ±0.18、n=1200 bootstrap，以 32.22 分为准。"
           }
         ]
       }
@@ -1718,7 +1718,7 @@
         "content": [
           {
             "type": "text",
-            "text": "帮我看看报告草稿的格式。"
+            "text": "把 test-clean 的结果保存到文件。"
           }
         ]
       }
@@ -1752,7 +1752,7 @@
           "content": [
             {
               "type": "text",
-              "text": "已保存。"
+              "text": "这个参数没变，结果应该稳定。"
             }
           ]
         }
@@ -1800,7 +1800,7 @@
         "content": [
           {
             "type": "text",
-            "text": "把评测脚本的参数贴一下。"
+            "text": "刚才那个结论先不要写进报告。"
           }
         ]
       }
@@ -1834,7 +1834,7 @@
           "content": [
             {
               "type": "text",
-              "text": "已保存。"
+              "text": "我记录一下这个待确认点。"
             }
           ]
         }
@@ -1882,7 +1882,7 @@
         "content": [
           {
             "type": "text",
-            "text": "把刚才的结果按表格整理一下。"
+            "text": "继续。"
           }
         ]
       }
@@ -1916,7 +1916,7 @@
           "content": [
             {
               "type": "text",
-              "text": "输出目录已确认。"
+              "text": "已保存。"
             }
           ]
         }
